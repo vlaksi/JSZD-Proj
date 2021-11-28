@@ -64,7 +64,36 @@
 ## References 
 
   1. Setup virtual env: [link](https://www.youtube.com/watch?v=4jt9JPoIDpY)
+  2. Introduction to textX: [link](https://www.youtube.com/watch?v=CN2IVtInapo)
 
  <br/><br/>
  
 </details>
+ 
+ 
+<details>
+ <summary> Packages </summary>
+ 
+ <br/>
+
+ ## Install dependencies
+ 
+ ```sh
+ pip install -r requirements.txt
+ ```
+ 
+ ## Update requirements with new dependencies
+ 
+ Do not forget to activate virtual env when you run this command !! (Otherwise you will update req with all dependencies from your machine !!)
+ 
+ ```sh
+ pip freeze > requirements.txt
+ ```
+ 
+  <br/>
+ 
+ </details>
+
+ <br/>
+ 
+ 
