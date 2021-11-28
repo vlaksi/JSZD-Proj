@@ -24,7 +24,7 @@
   
 ## Activate env
   
-  If you are on Windows, activate env with 
+  If you are on Windows(if you are on Mac, try bin instead of the Scripts), activate env with 
   ```
   .\<nameOfEnv>\Scripts\activate
   ```
