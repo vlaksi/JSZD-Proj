@@ -90,6 +90,11 @@
  pip freeze > requirements.txt
  ```
  
+ Eg. I installed textX (new dependencies to the env) and after that I updated requirements.
+ 
+ ![image](https://user-images.githubusercontent.com/45834270/143787942-977afae0-39f7-4627-8cdd-fbb23df3e04b.png)
+
+ 
   <br/>
  
  </details>
