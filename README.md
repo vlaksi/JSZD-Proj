@@ -1,6 +1,13 @@
-# Domain-specific language 
+# Sprint DSL in SCRUM
 
-[Info about the project](https://www.igordejanovic.net/courses/jsd/projekat/)
+This project provides a Domain-specific language that helps to generate and prepare the sprint for the SCRUM framework. 
+
+## Overview
+
+The idea behind this Domain-specific language is that someone can generate all user stories, tasks, and other parts of the sprint. With that, he will be able to manage and create sprints faster and in an easier way. After that, he can make some queries and see if everything seems okay for the next sprint. Besides that, users can check if some of the participants in the sprint have enough jobs and ect.
+
+
+## Menu
 
 <details>
  <summary> Virtual env usage </summary> 
@@ -98,6 +105,15 @@
   <br/>
  
  </details>
+ 
+ <details>
+ <summary> References </summary> <br/>
+ 
+## References
+ 
+1. More info about project request, can be found here: [link](https://www.igordejanovic.net/courses/jsd/projekat/)
+ 
+<br/> </details> 
 
  <br/>
  
