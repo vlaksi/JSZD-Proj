@@ -115,6 +115,13 @@ The idea behind this Domain-specific language is that someone can generate all u
  
 <br/> </details> 
 
+<details> </br>
+ <summary> Dictionary </summary>
+ 
+ - **Scrum**: Scrum is a framework within which people can address complex adaptive problems, while productively and creatively delivering products of the highest possible value.
+ 
+<br/> </details>
+ 
  <br/>
  
  
