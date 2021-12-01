@@ -1,4 +1,4 @@
-# Sprint DSL in SCRUM
+# Sprint DSL for SCRUM
 
 This project provides a Domain-specific language that helps to generate and prepare the sprint for the SCRUM framework. 
 
