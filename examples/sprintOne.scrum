@@ -1,0 +1,4 @@
+sprint EndGameS0 {
+    name: string
+    velocity: integer
+}

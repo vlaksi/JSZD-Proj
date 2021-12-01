@@ -1,7 +1,11 @@
-HelloWorldModel:
-  'hello' to_greet+=Who[',']
+SprintModel:
+  sprints+=Sprint
 ;
 
-Who:
-  name = /[^,]*/
+Sprint:
+  'sprint' name=ID '{' properties+=Property '}'
+;
+
+Property:
+  name=ID ':' type=ID
 ;

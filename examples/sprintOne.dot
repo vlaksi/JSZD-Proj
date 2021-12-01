@@ -1,0 +1,22 @@
+
+    digraph textX {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+4316889584 -> 4316891024 [label="sprints:0" arrowtail=diamond dir=both]
+4316891024 -> 4316891216 [label="properties:0" arrowtail=diamond dir=both]
+4316891216[label="{name:Property|+type:str='string'\l}"]
+4316891024 -> 4316891312 [label="properties:1" arrowtail=diamond dir=both]
+4316891312[label="{velocity:Property|+type:str='integer'\l}"]
+4316891024[label="{EndGameS0:Sprint|}"]
+4316889584[label="{:SprintModel|}"]
+
+}
