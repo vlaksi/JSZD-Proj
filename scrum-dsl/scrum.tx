@@ -3,9 +3,38 @@ SprintModel:
 ;
 
 Sprint:
-  'sprint' name=ID '{' properties+=Property '}'
+  'sprint' name=ID '{' userStories+=UserStory '}'
 ;
 
-Property:
-  name=ID ':' type=ID
+UserStory:
+  'story' name=ID '{' 
+    userStoryBody = UserStoryBody
+    userStoryDetails = UserStoryDetails
+  '}'
+;
+
+UserStoryBody:
+ 'acceptanceCriteria: ' storyAcceptanceCriteria=ID  
+  ('description: ' storyDescription=ID )?
+  ('objectives: ' storyObjectives=ID )?
+  ('additionalInformation: ' storyAdditionalInformation=ID )?  
+  ('openQuestions: ' storyOpenQuestions=ID )? 
+;
+
+UserStoryDetails:
+  ('priority: ' storyPriority = Priority)?
+  ('estimation: ' storyPoints = StoryPoints)?
+  ('labels: ' storyLabels = Labels)?
+;
+
+Priority:
+  'low' | 'medium' | 'high'
+;
+
+StoryPoints:
+  '1' | '2' | '3' | '5' | '8' | '13'
+;
+
+Labels:
+  'FE' | 'BE' | 'QA' | 'PO'
 ;
