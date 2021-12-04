@@ -23,16 +23,12 @@ UserStoryBody:
 
 UserStoryDetails:
   ('priority: ' storyPriority = Priority)?
-  ('estimation: ' storyPoints = StoryPoints)?
+  ('estimation: ' storyPoints = INT)?
   ('labels: ' storyLabels = Labels)?
 ;
 
 Priority:
   'low' | 'medium' | 'high'
-;
-
-StoryPoints:
-  '1' | '2' | '3' | '5' | '8' | '13'
 ;
 
 Labels:
