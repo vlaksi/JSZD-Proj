@@ -3,7 +3,13 @@ SprintModel:
 ;
 
 Sprint:
-  'sprint' name=ID '{' userStories+=UserStory '}'
+  'sprint' name=ID '{' 
+    'description: ' sprintDescription=ID
+    'startDate: ' sprintStartDate=Date
+    'endDate: ' sprintEndDate=Date
+    ('averageVelocity: ' teamAverageVelocity=INT)?
+    userStories+=UserStory 
+  '}'
 ;
 
 UserStory:
@@ -33,4 +39,8 @@ Priority:
 
 Labels:
   'FE' | 'BE' | 'QA' | 'PO'
+;
+
+Date:
+  year=INT '-' month=INT '-' day=INT 
 ;
