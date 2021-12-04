@@ -31,6 +31,8 @@ UserStoryDetails:
   ('priority: ' storyPriority = Priority)?
   ('estimation: ' storyPoints = INT)?
   ('labels: ' storyLabels = Labels)?
+  'reporter: ' reporter = Reporter
+  ('assigne: ' assigne = Assigne)?
 ;
 
 Priority:
@@ -43,4 +45,21 @@ Labels:
 
 Date:
   year=INT '-' month=INT '-' day=INT 
+;
+
+Person:
+  name=ID
+  ('position: ' personPosition=Position)?
+;
+
+Position:
+  'fe_dev' | 'be_dev' | 'qa' | 'scrum_master' | 'product_owner' | 'stakeholder'
+;
+
+Reporter:
+  person = [Person]
+;
+
+Assigne:
+  person = [Person]
 ;
