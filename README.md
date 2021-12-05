@@ -31,7 +31,7 @@ The idea behind this Domain-specific language is that someone can generate all u
   
 ## Activate env
   
-  If you are on Windows(if you are on Mac, try bin instead of the Scripts), activate env with 
+  If you are on Windows (if you are on Mac, try bin instead of the Scripts), activate (with powershell) env with 
   ```
   .\<nameOfEnv>\Scripts\activate
   ```
