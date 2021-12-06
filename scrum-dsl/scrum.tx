@@ -63,3 +63,7 @@ Reporter:
 Assigne:
   person = [Person]
 ;
+
+Comment:
+  /\/\/.*$/
+;

@@ -1,0 +1,57 @@
+
+    digraph textX {
+    fontname = "Bitstream Vera Sans"
+    fontsize = 8
+    node[
+        shape=record,
+        style=filled,
+        fillcolor=aliceblue
+    ]
+    nodesep = 0.3
+    edge[dir=black,arrowtail=empty]
+
+
+2939230722416[ label="{SprintModel|}"]
+
+2939230731856[ label="{Sprint|name: ID\lsprintDescription: ID\lteamAverageVelocity: INT\l}"]
+
+2939230734688[ label="{UserStory|name: ID\l}"]
+
+2939230736576[ label="{UserStoryBody|storyAcceptanceCriteria: ID\lstoryDescription: ID\lstoryObjectives: ID\lstoryAdditionalInformation: ID\lstoryOpenQuestions: ID\l}"]
+
+2939230737520[ label="{UserStoryDetails|storyPriority: Priority\lstoryPoints: INT\lstoryLabels: Labels\l}"]
+
+2939230713920[ label="{Date|year: INT\lmonth: INT\lday: INT\l}"]
+
+2939230738464[ label="{Person|name: ID\lpersonPosition: Position\l}"]
+
+2939230741296[ label="{Reporter|}"]
+
+2939230743184[ label="{Assigne|}"]
+
+
+
+2939230722416 -> 2939230731856[arrowtail=diamond, dir=both, headlabel="sprints 1..*"]
+2939230731856 -> 2939230713920[arrowtail=diamond, dir=both, headlabel="sprintStartDate "]
+2939230731856 -> 2939230713920[arrowtail=diamond, dir=both, headlabel="sprintEndDate "]
+2939230731856 -> 2939230734688[arrowtail=diamond, dir=both, headlabel="userStories 1..*"]
+2939230734688 -> 2939230736576[arrowtail=diamond, dir=both, headlabel="userStoryBody "]
+2939230734688 -> 2939230737520[arrowtail=diamond, dir=both, headlabel="userStoryDetails "]
+2939230737520 -> 2939230741296[arrowtail=diamond, dir=both, headlabel="reporter "]
+2939230737520 -> 2939230743184[arrowtail=diamond, dir=both, headlabel="assigne "]
+2939230741296 -> 2939230738464[headlabel="person "]
+2939230743184 -> 2939230738464[headlabel="person "]
+match_rules [ shape=plaintext, label=< <table>
+	<tr>
+		<td><b>Labels</b></td><td>FE|BE|QA|PO</td>
+	</tr>
+	<tr>
+		<td><b>Position</b></td><td>fe_dev|be_dev|qa|scrum_master|product_owner|stakeholder</td>
+	</tr>
+	<tr>
+		<td><b>Priority</b></td><td>low|medium|high</td>
+	</tr>
+</table> >]
+
+
+}
