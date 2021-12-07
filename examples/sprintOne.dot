@@ -11,14 +11,16 @@
     edge[dir=black,arrowtail=empty]
 
 
-4319065616 -> 4319066048 [label="sprints:0" arrowtail=diamond dir=both]
-4319066048 -> 4319066144 [label="sprintDescription" arrowtail=diamond dir=both]
-4319066144[label="{:Sentance|+value:str='Start & setup a proj...'\l}"]
-4319066048 -> 4319066240 [label="sprintStartDate" arrowtail=diamond dir=both]
-4319066240[label="{:Date|+year:int=2021\l+month:int=3\l+day:int=7\l}"]
-4319066048 -> 4319066288 [label="sprintEndDate" arrowtail=diamond dir=both]
-4319066288[label="{:Date|+year:int=2021\l+month:int=3\l+day:int=21\l}"]
-4319066048[label="{EndGameS0:Sprint|+teamAverageVelocity:int=0\l}"]
-4319065616[label="{:SprintModel|}"]
+4392854912 -> 4392855968 [label="sprints:0" arrowtail=diamond dir=both]
+4392855968 -> 4392856064 [label="sprintDescription" arrowtail=diamond dir=both]
+4392856064[label="{:Sentance|+value:str='Start & setup a proj...'\l}"]
+4392855968 -> 4392856160 [label="sprintStartDate" arrowtail=diamond dir=both]
+4392856160[label="{:Date|+year:int=2021\l+month:int=3\l+day:int=7\l}"]
+4392855968 -> 4392856208 [label="sprintEndDate" arrowtail=diamond dir=both]
+4392856208[label="{:Date|+year:int=2021\l+month:int=3\l+day:int=21\l}"]
+4392855968 -> 4392856256 [label="sprintRules" arrowtail=diamond dir=both]
+4392856256[label="{:SprintRules|+minNumberOfUSPerPerson:int=3\l+maxNumberOfUSPerPerson:int=0\l}"]
+4392855968[label="{EndGameS0:Sprint|+teamAverageVelocity:int=0\l}"]
+4392854912[label="{:SprintModel|}"]
 
 }

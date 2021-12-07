@@ -11,13 +11,13 @@ Sprint:
     'endDate: ' sprintEndDate=Date ';'
     ('averageVelocity: ' teamAverageVelocity=INT ';')?
     //userStories+=UserStory 
-    //sprintRules=SprintRules
+    sprintRules=SprintRules
   '}'
 ;
 
 SprintRules:
-  'minNumberOfUSPerPerson: ' minNumberOfUSPerPerson=INT
-  'maxNumberOfUSPerPerson: ' maxNumberOfUSPerPerson=INT
+  'minNumberOfUSPerPerson: ' minNumberOfUSPerPerson=INT ';'
+  ('maxNumberOfUSPerPerson: ' maxNumberOfUSPerPerson=INT ';')?
 ;
 
 UserStory:

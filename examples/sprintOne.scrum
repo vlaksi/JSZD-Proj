@@ -1,5 +1,6 @@
 sprint EndGameS0 {
-    description: Start & setup a project ;
-    startDate: 2021-03-07 ;
-    endDate: 2021-03-21 ;
+    description: Start & setup a project;
+    startDate: 2021-03-07;
+    endDate: 2021-03-21;
+    minNumberOfUSPerPerson: 3;
 }
