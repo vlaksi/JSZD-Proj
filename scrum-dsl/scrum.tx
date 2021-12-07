@@ -10,8 +10,8 @@ Sprint:
     'startDate: ' sprintStartDate=Date ';'
     'endDate: ' sprintEndDate=Date ';'
     ('averageVelocity: ' teamAverageVelocity=INT ';')?
-    //userStories+=UserStory 
     sprintRules=SprintRules
+    userStories+=UserStory 
   '}'
 ;
 
@@ -23,16 +23,16 @@ SprintRules:
 UserStory:
   'story' name=ID '{' 
     userStoryBody = UserStoryBody
-    userStoryDetails = UserStoryDetails
+    //userStoryDetails = UserStoryDetails
   '}'
 ;
 
 UserStoryBody:
- 'acceptanceCriteria: ' storyAcceptanceCriteria=ID  
-  ('description: ' storyDescription=ID )?
-  ('objectives: ' storyObjectives=ID )?
-  ('additionalInformation: ' storyAdditionalInformation=ID )?  
-  ('openQuestions: ' storyOpenQuestions=ID )? 
+ 'acceptanceCriteria: ' storyAcceptanceCriteria=Sentance ';'
+  ('description: ' storyDescription=Sentance ';')?
+  ('objectives: ' storyObjectives=Sentance ';' )?
+  ('additionalInformation: ' storyAdditionalInformation=Sentance ';' )?  
+  ('openQuestions: ' storyOpenQuestions=Sentance ';' )? 
 ;
 
 UserStoryDetails:

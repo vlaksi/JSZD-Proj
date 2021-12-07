@@ -3,4 +3,13 @@ sprint EndGameS0 {
     startDate: 2021-03-07;
     endDate: 2021-03-21;
     minNumberOfUSPerPerson: 3;
+
+    story Setup_Firebase {
+        acceptanceCriteria: Can connect to the firebase;
+    }
+
+    story Setup_NextJS {
+        acceptanceCriteria: Can open & run FE project;
+        description: Find on the next js documentation how to setup base project on next;
+    }
 }
