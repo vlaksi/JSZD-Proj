@@ -2,14 +2,16 @@ SprintModel:
   sprints+=Sprint
 ;
 
+//--------- MAIN PART OF THE GRAMMAR ---------//
+
 Sprint:
   'sprint' name=ID '{' 
-    'description: ' sprintDescription=ID
-    'startDate: ' sprintStartDate=Date
-    'endDate: ' sprintEndDate=Date
-    ('averageVelocity: ' teamAverageVelocity=INT)?
-    userStories+=UserStory 
-    sprintRules=SprintRules
+    'description: ' sprintDescription=Sentance ';'
+    'startDate: ' sprintStartDate=Date ';'
+    'endDate: ' sprintEndDate=Date ';'
+    ('averageVelocity: ' teamAverageVelocity=INT ';')?
+    //userStories+=UserStory 
+    //sprintRules=SprintRules
   '}'
 ;
 
@@ -49,10 +51,6 @@ Labels:
   'FE' | 'BE' | 'QA' | 'PO'
 ;
 
-Date:
-  year=INT '-' month=INT '-' day=INT 
-;
-
 Person:
   name=ID
   ('position: ' personPosition=Position)?
@@ -70,6 +68,17 @@ Assigne:
   person = [Person]
 ;
 
+//--------- PRIMITIVE PART OF THE GRAMMAR ---------//
+
+Date:
+  year=INT '-' month=INT '-' day=INT 
+;
+
 Comment:
   /\/\/.*$/
+;
+
+// We use sentance this way, cause we want to exlude ; and have many words
+Sentance:
+  value = /[^;]*/
 ;

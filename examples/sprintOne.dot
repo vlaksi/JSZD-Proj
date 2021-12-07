@@ -11,12 +11,14 @@
     edge[dir=black,arrowtail=empty]
 
 
-4316889584 -> 4316891024 [label="sprints:0" arrowtail=diamond dir=both]
-4316891024 -> 4316891216 [label="properties:0" arrowtail=diamond dir=both]
-4316891216[label="{name:Property|+type:str='string'\l}"]
-4316891024 -> 4316891312 [label="properties:1" arrowtail=diamond dir=both]
-4316891312[label="{velocity:Property|+type:str='integer'\l}"]
-4316891024[label="{EndGameS0:Sprint|}"]
-4316889584[label="{:SprintModel|}"]
+4319065616 -> 4319066048 [label="sprints:0" arrowtail=diamond dir=both]
+4319066048 -> 4319066144 [label="sprintDescription" arrowtail=diamond dir=both]
+4319066144[label="{:Sentance|+value:str='Start & setup a proj...'\l}"]
+4319066048 -> 4319066240 [label="sprintStartDate" arrowtail=diamond dir=both]
+4319066240[label="{:Date|+year:int=2021\l+month:int=3\l+day:int=7\l}"]
+4319066048 -> 4319066288 [label="sprintEndDate" arrowtail=diamond dir=both]
+4319066288[label="{:Date|+year:int=2021\l+month:int=3\l+day:int=21\l}"]
+4319066048[label="{EndGameS0:Sprint|+teamAverageVelocity:int=0\l}"]
+4319065616[label="{:SprintModel|}"]
 
 }
