@@ -1,15 +1,34 @@
+person Perica {
+    position: fe_dev;
+    age: 25;
+}
+
+person Jovica {
+    position: fe_dev;
+    age: 25;
+    birthday: 1998-03-19;
+}
+
 sprint EndGameS0 {
     description: Start & setup a project;
     startDate: 2021-03-07;
     endDate: 2021-03-21;
     minNumberOfUSPerPerson: 3;
 
-    story Setup_Firebase {
-        acceptanceCriteria: Can connect to the firebase;
-    }
-
     story Setup_NextJS {
         acceptanceCriteria: Can open & run FE project;
         description: Find on the next js documentation how to setup base project on next;
+        
+        estimation: 5;
+        reporter: Perica;
+        assigne: Jovica;
+    }
+
+    story Create_Readme {
+        acceptanceCriteria: Readme is available;
+        description: Add smth to the readme pls guys ;
+
+        estimation: 3;
+        reporter: Jovica;
     }
 }
