@@ -7,6 +7,45 @@ This project provides a Domain-specific language that helps to generate and prep
 The idea behind this Domain-specific language is that someone can generate all user stories, tasks, and other parts of the sprint. With that, he will be able to manage and create sprints faster and in an easier way. After that, he can make some queries and see if everything seems okay for the next sprint. Besides that, users can check if some of the participants in the sprint have enough jobs and ect.
 
 
+## Example
+
+```sh
+person Perica {
+    position: fe_dev;
+    age: 25;
+}
+
+person Jovica {
+    position: fe_dev;
+    age: 25;
+    birthday: 1998-03-19;
+}
+
+sprint EndGameS0 {
+    description: Start & setup a project;
+    startDate: 2021-03-07;
+    endDate: 2021-03-21;
+    minNumberOfUSPerPerson: 3;
+
+    story Setup_NextJS {
+        acceptanceCriteria: Can open & run FE project;
+        description: Find on the next js documentation how to setup base project on next;
+        
+        estimation: 5;
+        reporter: Perica;
+        assigne: Jovica;
+    }
+
+    story Create_Readme {
+        acceptanceCriteria: Readme is available;
+        description: Add smth to the readme pls guys ;
+
+        estimation: 3;
+        reporter: Jovica;
+    }
+}
+```
+
 ## Menu
 
 <details>
