@@ -1,0 +1,89 @@
+SprintModel:
+  persons*=Person
+  sprints+=Sprint
+;
+
+//--------- MAIN PART OF THE GRAMMAR ---------//
+
+Sprint:
+  'sprint' name=ID '{' 
+    'description: ' sprintDescription=Sentance ';'
+    'startDate: ' sprintStartDate=Date ';'
+    'endDate: ' sprintEndDate=Date ';'
+    ('averageVelocity: ' teamAverageVelocity=INT ';')?
+    sprintRules=SprintRules
+    userStories+=UserStory 
+  '}'
+;
+
+SprintRules:
+  'minNumberOfUSPerPerson: ' minNumberOfUSPerPerson=INT ';'
+  ('maxNumberOfUSPerPerson: ' maxNumberOfUSPerPerson=INT ';')?
+;
+
+UserStory:
+  'story' name=ID '{' 
+    userStoryBody = UserStoryBody
+    userStoryDetails = UserStoryDetails
+  '}'
+;
+
+UserStoryBody:
+ 'acceptanceCriteria: ' storyAcceptanceCriteria=Sentance ';'
+  ('description: ' storyDescription=Sentance ';')?
+  ('objectives: ' storyObjectives=Sentance ';' )?
+  ('additionalInformation: ' storyAdditionalInformation=Sentance ';' )?  
+  ('openQuestions: ' storyOpenQuestions=Sentance ';' )? 
+;
+
+UserStoryDetails:
+  ('priority: ' storyPriority = Priority ';')?
+  ('estimation: ' storyPoints = INT ';')?
+  ('labels: ' storyLabels = Labels ';')?
+  'reporter: ' reporter = Reporter ';'
+  ('assigne: ' assigne = Assigne ';')?
+;
+
+Priority:
+  'low' | 'medium' | 'high'
+;
+
+Labels:
+  'FE' | 'BE' | 'QA' | 'PO'
+;
+
+Person:
+  'person' name=ID '{'
+    'position: ' personPosition=Position ';'
+    ('age: ' age=INT ';')?
+    ('birthday: ' birthday=Date ';')?
+    ('monthsInCompany: ' monthsInCompany=INT ';')?
+  '}'
+;
+
+Position:
+  'fe_dev' | 'be_dev' | 'qa' | 'scrum_master' | 'product_owner' | 'stakeholder'
+;
+
+Reporter:
+  person = [Person]
+;
+
+Assigne:
+  person = [Person]
+;
+
+//--------- PRIMITIVE PART OF THE GRAMMAR ---------//
+
+Date:
+  year=INT '-' month=INT '-' day=INT 
+;
+
+Comment:
+  /\/\/.*$/
+;
+
+// We use sentance this way, cause we want to exlude ; and have many words
+Sentance:
+  value = /[^;]*/
+;
