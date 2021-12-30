@@ -70,7 +70,7 @@ sprint EndGameS0 {
   
 ## Activate env
   
-  If you are on Windows (if you are on Mac, try bin instead of the Scripts), activate (with powershell) env with 
+  If you are on Windows, activate (with powershell) env with 
   ```
   .\<nameOfEnv>\Scripts\activate
   ```
@@ -81,7 +81,13 @@ sprint EndGameS0 {
   And after you did that, you will have activated your virtual env, you can see name of your env next to the route of the current directory.
   
   ![image](https://user-images.githubusercontent.com/45834270/143786471-afff5acf-afac-408f-9f46-884630929198.png)
-  
+ 
+  <br/>
+    
+  If you are on macOS, activate env with 
+   ```
+   source .\<nameOfEnv>\bin\activate
+  ```
   <br/>
   
 
