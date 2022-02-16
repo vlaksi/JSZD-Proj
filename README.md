@@ -62,6 +62,10 @@ sprint EndGameS0 {
   ```sh
   python -m virtualenv jszd-env
   ```
+  on macOS:
+  ```sh
+  virtualenv jszd-env
+  ```
   Then, in your project, you will get virtualenv where you can install all needed dependencies and etc.  
   
   ![image](https://user-images.githubusercontent.com/45834270/143786245-7efc5852-c25d-4f95-98e3-d5f6eec723f9.png)
