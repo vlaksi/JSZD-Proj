@@ -1,12 +1,18 @@
 from os.path import join, dirname
 from textx import metamodel_from_file
+import json
 
 class Scrum(object):
 
 
     def interpret(self, model):
-            print(model)
 
+        # model is an instance of Program
+        for sprint in model.sprints:
+            #print(model.__dict__)
+            print(sprint)
+            for user_story in sprint.userStories:
+                print(user_story)
 
 def main():
 
