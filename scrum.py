@@ -9,9 +9,8 @@ class Scrum(object):
             print(sprint)
             for user_story in sprint.userStories:
                 print(user_story.userStoryBody.storyAcceptanceCriteria.value)
-            
             #example of post request using requests library
-            payload={'title': 'foo','body': 'bar','userId': 1}
+            payload={'title':user_story.name,'body': user_story.userStoryBody.storyAcceptanceCriteria.value,'userId': 1}
             r = requests.post('https://jsonplaceholder.typicode.com/posts', data=payload)
             print(r.status_code)
             print(r.text)
