@@ -1,17 +1,24 @@
 from os.path import join, dirname
 from textx import metamodel_from_file
+import requests
 
 class Scrum(object):
-
-
     def interpret(self, model):
-
-        # model is an instance of Program
         for sprint in model.sprints:
             #print(model.__dict__)
             print(sprint)
             for user_story in sprint.userStories:
                 print(user_story.userStoryBody.storyAcceptanceCriteria.value)
+            
+            #example of post request using requests library
+            payload={'title': 'foo','body': 'bar','userId': 1}
+            r = requests.post('https://jsonplaceholder.typicode.com/posts', data=payload)
+            print(r.status_code)
+            print(r.text)
+            print(r.ok)
+            print(r.url)
+            print(r.json())
+
 
 def main():
 
