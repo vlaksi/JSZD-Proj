@@ -180,6 +180,7 @@ sprint EndGameS0 {
     
 ## Trello
  Documentation: https://developer.atlassian.com/cloud/trello/rest/api-group-actions/
+    
  How to generate Key and Token:
  1. Login into your Trello Account. You can do it with gmail.
  2. Go to this link https://trello.com/app-key to get the API Key.
