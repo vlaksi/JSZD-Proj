@@ -27,12 +27,35 @@ def extracte_all_cards_from_all_boards():
 
     data_member = json.loads(response_member.text)
     board_ids = data_member['idBoards']
-  
+    print(board_ids)
     for board_id in board_ids:
         url_board_cards = "https://api.trello.com/1/boards/" + board_id +"/cards"
         response_board_cards = requests.request("GET", url_board_cards, params=querystring)
         data_board_cards = json.loads(response_board_cards.text)
         print(data_board_cards)
+
+#Create new card on TRELLO:
+def create_new_ticket(name, desc):
+    url = "https://api.trello.com/1/cards"
+
+    headers = {
+        "Accept": "application/json"
+    }
+
+    query = {
+        'idList': '627c210aa0ed4a48c3dd069d',
+        'key': "9519ec4ca00591297f8bb4e7e184a841",
+        'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
+        'name': name,
+        'desc': desc
+    }
+
+    response = requests.request(
+        "POST",
+        url,
+        headers=headers,
+        params=query
+    )
 
 
 def main():
@@ -45,7 +68,7 @@ def main():
     scrum = Scrum()
     scrum.interpret(scrum_model)
     extracte_all_cards_from_all_boards()
-
+    create_new_ticket("task kreiran preko REST APIa", "opis za tiket")
 
 
 if __name__ == "__main__":
