@@ -31,4 +31,12 @@ sprint EndGameS0 {
         estimation: 3;
         reporter: Jovica;
     }
+
+    story Check_endpoints {
+        acceptanceCriteria: Readme is available;
+        description: Add smth to the readme pls guys ;
+
+        estimation: 3;
+        reporter: Jovica;
+    }
 }
