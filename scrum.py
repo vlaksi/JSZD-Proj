@@ -7,25 +7,15 @@ class Scrum(object):
     def interpret(self, model):
         for sprint in model.sprints:
             #print(model.__dict__)
-            print(sprint)
-            for user_story in sprint.userStories:
-                print(user_story.userStoryBody.storyAcceptanceCriteria.value)
-            #example of post request using requests library
-            payload={'title':user_story.name,'body': user_story.userStoryBody.storyAcceptanceCriteria.value,'userId': 1}
-            #r = requests.post('https://jsonplaceholder.typicode.com/posts', data=payload)
-            #print(r.status_code)
-            #print(r.text)
-            #print(r.ok)
-            #print(r.url)
-            #print(r.json())
-            query = {
-                'idList': '627c210aa0ed4a48c3dd069d',
-                'key': "9519ec4ca00591297f8bb4e7e184a841",
-                'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
-                'name': user_story.name,
-                'desc': user_story.userStoryBody.storyAcceptanceCriteria.value
-            }
-            create_new_ticket(query)
+            for user_story in sprint.userStories: 
+                query = {
+                    'idList': '627c210aa0ed4a48c3dd069d',
+                    'key': "9519ec4ca00591297f8bb4e7e184a841",
+                    'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
+                    'name': user_story.name,
+                    'desc': user_story.userStoryBody.storyAcceptanceCriteria.value
+                }
+                create_new_ticket(query)
 
 #Extracting all the cards in all boards FROM TRELLO:
 def extracte_all_cards_from_all_boards():
@@ -43,7 +33,7 @@ def extracte_all_cards_from_all_boards():
         print(data_board_cards)
 
 #Create new card on TRELLO:
-def create_new_ticket(name, desc):
+def create_new_ticket(query):
     url = "https://api.trello.com/1/cards"
 
     headers = {
@@ -68,7 +58,7 @@ def main():
     scrum = Scrum()
     scrum.interpret(scrum_model)
     extracte_all_cards_from_all_boards()
-    #create_new_ticket("Primer tiketa", "opis za tiket")
+    
 
 
 if __name__ == "__main__":
