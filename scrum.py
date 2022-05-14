@@ -12,7 +12,7 @@ import requests
 # ie. list (and that represent a sprint)
 # TODO: Improve a class to support many tracking system
 class Scrum(object):
-    
+
     def interpret(self, model):
         for sprint_model in model.sprints:
             #print(model.__dict__)
@@ -21,31 +21,37 @@ class Scrum(object):
             self.create_sprint_user_stories(sprint_model.userStories, created_sprint_on_trello)
 
 
-    def create_sprint_user_stories(self, sprint_user_stories, created_sprint):
-        story_member_ids = self.get_story_member_ids() 
-        for user_story in sprint_user_stories: 
+    def create_sprint_user_stories(self, sprint_user_stories_model, created_sprint):
+        # TODO: Move this get call to one logical higher level (call it once, not for each sprint!)
+        all_board_members = self.get_all_board_members()
+        for user_story_model in sprint_user_stories_model: 
+            story_member_ids = self.get_story_member_ids(user_story_model, all_board_members) 
             story_payload = {
                     'idList': created_sprint['id'],
                     'key': "9519ec4ca00591297f8bb4e7e184a841",
                     'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
-                    'name': user_story.name,
-                    'desc': user_story.userStoryBody.storyDescription.value,
-                    # 'idMembers': story_member_ids
+                    'name': user_story_model.name,
+                    'desc': user_story_model.userStoryBody.storyDescription.value,
+                    'idMembers': story_member_ids
                 }
                 
             self.create_new_ticket_on_trello(story_payload)
 
 
-    def get_story_member_ids(self):
-        member_ids = []
-        # get all members of the board
-        all_board_members = self.get_all_board_members()
+    def get_story_member_ids(self, user_story_model, all_board_members):
+        story_member_ids = []
 
-        # go trough all members of the board
-        # if the current_user.username.contains(user_story.userStoryDetails.assigne)
-        # member_ids.push(current_user.id)
+        for member in all_board_members:
+            try: # INFO: We have this try/catch because assigne is not required (and we will break program otherwise)
+                if user_story_model.userStoryDetails.assigne.person.name.lower() in member['fullName'].lower():
+                    story_member_ids.append(member['id'])
+            except:
+                print("Warning: There is no assigne for XXX story")
 
-        return member_ids
+            if user_story_model.userStoryDetails.reporter.person.name.lower() in member['fullName'].lower():
+                story_member_ids.append(member['id'])
+
+        return story_member_ids
 
 
     def get_all_board_members(self):
