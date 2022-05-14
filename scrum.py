@@ -8,8 +8,9 @@ class Scrum(object):
         for sprint_model in model.sprints:
             #print(model.__dict__)
 
-            created_sprint = create_new_sprint(sprint_model)
+            created_sprint = self.create_new_sprint(sprint_model)
             self.create_sprint_user_stories(sprint_model.userStories, created_sprint)
+
 
     def create_sprint_user_stories(self, sprint_user_stories, created_sprint):
         for user_story in sprint_user_stories: 
@@ -22,6 +23,32 @@ class Scrum(object):
                 }
                 
             create_new_ticket(story_payload)
+
+
+    # Create new list/column on TRELLO:
+    def create_new_sprint(self, sprint):
+
+        sprint_payload = {
+                'idBoard':'627c210aa0ed4a48c3dd069c',
+                'key': "9519ec4ca00591297f8bb4e7e184a841",
+                'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
+                'name': sprint.name, 
+        }
+        
+        url="https://api.trello.com/1/lists"
+        
+        headers= {
+            "Accept":"application/json"
+        }
+
+        response = requests.request(
+            "POST",
+            url,
+            headers=headers,
+            params=sprint_payload
+        )
+
+        return json.loads(response.text)
                
 
 #Extracting all the cards in all boards FROM TRELLO:
@@ -54,31 +81,7 @@ def create_new_ticket(query):
         params=query
     )
 
-#Create new list on TRELLO:
-def create_new_sprint(sprint):
 
-    sprint_payload = {
-            'idBoard':'627c210aa0ed4a48c3dd069c',
-            'key': "9519ec4ca00591297f8bb4e7e184a841",
-            'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
-            'name': sprint.name, 
-    }
-
-
-    url="https://api.trello.com/1/lists"
-
-    headers= {
-        "Accept":"application/json"
-    }
-
-    response = requests.request(
-        "POST",
-        url,
-        headers=headers,
-        params=sprint_payload
-    )
-
-    return json.loads(response.text)
 
 def main():
 
