@@ -12,6 +12,7 @@ import requests
 # ie. list (and that represent a sprint)
 # TODO: Improve a class to support many tracking system
 class Scrum(object):
+    
     def interpret(self, model):
         for sprint_model in model.sprints:
             #print(model.__dict__)
@@ -34,11 +35,38 @@ class Scrum(object):
                 
             self.create_new_ticket_on_trello(story_payload)
 
+
     def get_story_member_ids(self):
         member_ids = []
+        # get all members of the board
+        all_board_members = self.get_all_board_members()
+
+        # go trough all members of the board
+        # if the current_user.username.contains(user_story.userStoryDetails.assigne)
+        # member_ids.push(current_user.id)
 
         return member_ids
-        
+
+
+    def get_all_board_members(self):
+        url = "https://api.trello.com/1/boards/627c210aa0ed4a48c3dd069c/members"
+
+        headers = {"Accept": "application/json"}
+
+        payload = {
+            'key': '9519ec4ca00591297f8bb4e7e184a841',
+            'token': '013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82'
+        }
+
+        response = requests.request(
+            "GET",
+            url,
+            headers=headers,
+            params=payload
+        )
+
+        return json.loads(response.text)
+
 
     def create_new_sprint_on_trello(self, sprint):
 
@@ -63,7 +91,8 @@ class Scrum(object):
         )
 
         return json.loads(response.text)
-               
+
+
     def create_new_ticket_on_trello(self, story_payload):
         url = "https://api.trello.com/1/cards"
 
