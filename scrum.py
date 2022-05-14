@@ -3,6 +3,10 @@ from os.path import join, dirname
 from textx import metamodel_from_file
 import requests
 
+# INFO: This grammar & interpreter is based on the fact that user 
+# ie. member that is assignee or reporter is already member of
+# the used board !!! 
+
 # Right now, we have a methods in this class that can create new sprint
 # on the Trello & also we can create tickets/stories in the new column
 # ie. list (and that represent a sprint)
@@ -17,6 +21,7 @@ class Scrum(object):
 
 
     def create_sprint_user_stories(self, sprint_user_stories, created_sprint):
+        story_member_ids = self.get_story_member_ids() 
         for user_story in sprint_user_stories: 
             story_payload = {
                     'idList': created_sprint['id'],
@@ -24,9 +29,16 @@ class Scrum(object):
                     'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
                     'name': user_story.name,
                     'desc': user_story.userStoryBody.storyDescription.value,
+                    # 'idMembers': story_member_ids
                 }
                 
             self.create_new_ticket_on_trello(story_payload)
+
+    def get_story_member_ids(self):
+        member_ids = []
+
+        return member_ids
+        
 
     def create_new_sprint_on_trello(self, sprint):
 

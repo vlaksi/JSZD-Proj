@@ -8,8 +8,8 @@ SprintModel:
 Sprint:
   'sprint' name=ID '{' 
     'description: ' sprintDescription=Sentance ';'
-    'startDate: ' sprintStartDate=Date ';'
-    'endDate: ' sprintEndDate=Date ';'
+    ('startDate: ' sprintStartDate=Date ';')?
+    ('endDate: ' sprintEndDate=Date ';')?
     ('averageVelocity: ' teamAverageVelocity=INT ';')?
     sprintRules=SprintRules
     userStories+=UserStory 
