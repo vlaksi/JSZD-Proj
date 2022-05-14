@@ -5,32 +5,23 @@ import requests
 
 class Scrum(object):
     def interpret(self, model):
-        for sprint in model.sprints:
+        for sprint_model in model.sprints:
             #print(model.__dict__)
 
-            sprint_payload = {
-                    'idBoard':'627c210aa0ed4a48c3dd069c',
-                    'key': "9519ec4ca00591297f8bb4e7e184a841",
-                    'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
-                    'name': sprint.name, 
-            }
+            created_sprint = create_new_sprint(sprint_model)
+            self.create_sprint_user_stories(sprint_model.userStories, created_sprint)
 
-            created_sprint_response = create_new_sprint(sprint_payload)
-            created_sprint = json.loads(created_sprint_response.text)
-            print("ispisujemo created sprint response")
-            print(created_sprint_response)
-            
-            for user_story in sprint.userStories: 
-                story_payload = {
+    def create_sprint_user_stories(self, sprint_user_stories, created_sprint):
+        for user_story in sprint_user_stories: 
+            story_payload = {
                     'idList': created_sprint['id'],
                     'key': "9519ec4ca00591297f8bb4e7e184a841",
                     'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
                     'name': user_story.name,
                     'desc': user_story.userStoryBody.storyDescription.value,
-                    
                 }
                 
-                create_new_ticket(story_payload)
+            create_new_ticket(story_payload)
                
 
 #Extracting all the cards in all boards FROM TRELLO:
@@ -62,8 +53,18 @@ def create_new_ticket(query):
         headers=headers,
         params=query
     )
+
 #Create new list on TRELLO:
-def create_new_sprint(query):
+def create_new_sprint(sprint):
+
+    sprint_payload = {
+            'idBoard':'627c210aa0ed4a48c3dd069c',
+            'key': "9519ec4ca00591297f8bb4e7e184a841",
+            'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
+            'name': sprint.name, 
+    }
+
+
     url="https://api.trello.com/1/lists"
 
     headers= {
@@ -74,10 +75,10 @@ def create_new_sprint(query):
         "POST",
         url,
         headers=headers,
-        params=query
+        params=sprint_payload
     )
 
-    return response
+    return json.loads(response.text)
 
 def main():
 
