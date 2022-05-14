@@ -16,10 +16,13 @@ class Scrum(object):
                     
                     
             }
-            create_new_sprint(query2)
+            created_sprint_response = create_new_sprint(query2)
+            created_sprint = json.loads(created_sprint_response.text)
+            print("ispisujemo created sprint response")
+            print(created_sprint_response)
             for user_story in sprint.userStories: 
                 query = {
-                    'idList': '627c210aa0ed4a48c3dd069d',
+                    'idList': created_sprint['id'],
                     'key': "9519ec4ca00591297f8bb4e7e184a841",
                     'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
                     'name': user_story.name,
@@ -73,6 +76,8 @@ def create_new_sprint(query):
         headers=headers,
         params=query
     )
+
+    return response
 
 def main():
 
