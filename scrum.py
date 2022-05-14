@@ -8,20 +8,20 @@ class Scrum(object):
         for sprint in model.sprints:
             #print(model.__dict__)
 
-            query2 = {
+            sprint_payload = {
                     'idBoard':'627c210aa0ed4a48c3dd069c',
                     'key': "9519ec4ca00591297f8bb4e7e184a841",
                     'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
-                    'name': sprint.name,
-                    
-                    
+                    'name': sprint.name, 
             }
-            created_sprint_response = create_new_sprint(query2)
+
+            created_sprint_response = create_new_sprint(sprint_payload)
             created_sprint = json.loads(created_sprint_response.text)
             print("ispisujemo created sprint response")
             print(created_sprint_response)
+            
             for user_story in sprint.userStories: 
-                query = {
+                story_payload = {
                     'idList': created_sprint['id'],
                     'key': "9519ec4ca00591297f8bb4e7e184a841",
                     'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
@@ -30,7 +30,7 @@ class Scrum(object):
                     
                 }
                 
-                create_new_ticket(query)
+                create_new_ticket(story_payload)
                
 
 #Extracting all the cards in all boards FROM TRELLO:
