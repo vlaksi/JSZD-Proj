@@ -8,8 +8,8 @@ SprintModel:
 Sprint:
   'sprint' name=ID '{' 
     'description: ' sprintDescription=Sentance ';'
-    'startDate: ' sprintStartDate=Date ';'
-    'endDate: ' sprintEndDate=Date ';'
+    ('startDate: ' sprintStartDate=Date ';')?
+    ('endDate: ' sprintEndDate=Date ';')?
     ('averageVelocity: ' teamAverageVelocity=INT ';')?
     sprintRules=SprintRules
     userStories+=UserStory 
@@ -29,7 +29,7 @@ UserStory:
 ;
 
 UserStoryBody:
- 'acceptanceCriteria: ' storyAcceptanceCriteria=Sentance ';'
+ ('acceptanceCriteria: ' storyAcceptanceCriteria=Sentance ';')?
   ('description: ' storyDescription=Sentance ';')?
   ('objectives: ' storyObjectives=Sentance ';' )?
   ('additionalInformation: ' storyAdditionalInformation=Sentance ';' )?  
@@ -39,7 +39,7 @@ UserStoryBody:
 UserStoryDetails:
   ('priority: ' storyPriority = Priority ';')?
   ('estimation: ' storyPoints = INT ';')?
-  ('labels: ' storyLabels = Labels ';')?
+  ('labels: ' storyLabels += Label ';')?
   'reporter: ' reporter = Reporter ';'
   ('assigne: ' assigne = Assigne ';')?
 ;
@@ -48,8 +48,8 @@ Priority:
   'low' | 'medium' | 'high'
 ;
 
-Labels:
-  'FE' | 'BE' | 'QA' | 'PO'
+Label:
+  name=ID
 ;
 
 Person:
