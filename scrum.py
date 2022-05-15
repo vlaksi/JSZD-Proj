@@ -35,7 +35,7 @@ class Scrum(object):
                     'idList': created_sprint['id'],
                     'key': "9519ec4ca00591297f8bb4e7e184a841",
                     'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
-                    'name': user_story_model.name,
+                    'name': '(' + str(user_story_model.userStoryDetails.storyPoints) + ') ' + user_story_model.name,
                     'desc': user_story_model.userStoryBody.storyDescription.value,
                     'idMembers': story_member_ids,
                     'idLabels': story_label_ids

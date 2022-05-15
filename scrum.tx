@@ -29,7 +29,7 @@ UserStory:
 ;
 
 UserStoryBody:
- 'acceptanceCriteria: ' storyAcceptanceCriteria=Sentance ';'
+ ('acceptanceCriteria: ' storyAcceptanceCriteria=Sentance ';')?
   ('description: ' storyDescription=Sentance ';')?
   ('objectives: ' storyObjectives=Sentance ';' )?
   ('additionalInformation: ' storyAdditionalInformation=Sentance ';' )?  
