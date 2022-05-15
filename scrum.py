@@ -7,6 +7,9 @@ import requests
 # ie. member that is assignee or reporter is already member of
 # the used board !!! 
 
+# TODO: Implement checker for position, ie. we need to have at least one
+# fe_dev, be_dev & qa in the team (board)
+
 # Right now, we have a methods in this class that can create new sprint
 # on the Trello & also we can create tickets/stories in the new column
 # ie. list (and that represent a sprint)
