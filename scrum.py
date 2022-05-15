@@ -3,9 +3,12 @@ from os.path import join, dirname
 from textx import metamodel_from_file
 import requests
 
-# INFO: This grammar & interpreter is based on the fact that user 
+# INFO: This grammar & interpreter is based on the fact that user
 # ie. member that is assignee or reporter is already member of
 # the used board !!! 
+# INFO: It's the same for the labels, ie. assigned labels to the story
+# must already exist on the board, otherwise it will be not added to the
+# story
 
 # TODO: Implement checker for position, ie. we need to have at least one
 # fe_dev, be_dev & qa in the team (board)
