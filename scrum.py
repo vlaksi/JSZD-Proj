@@ -27,8 +27,10 @@ class Scrum(object):
     def create_sprint_user_stories(self, sprint_user_stories_model, created_sprint):
         # TODO: Move this get call to one logical higher level (call it once, not for each sprint!)
         all_board_members = self.get_all_board_members()
+        all_board_labels = self.get_all_board_labels()
         for user_story_model in sprint_user_stories_model: 
-            story_member_ids = self.get_story_member_ids(user_story_model, all_board_members) 
+            story_member_ids = self.get_story_member_ids(user_story_model, all_board_members)
+            # story_label_ids = self.get_story_label_ids(user_story_model)
             story_payload = {
                     'idList': created_sprint['id'],
                     'key': "9519ec4ca00591297f8bb4e7e184a841",
@@ -36,6 +38,7 @@ class Scrum(object):
                     'name': user_story_model.name,
                     'desc': user_story_model.userStoryBody.storyDescription.value,
                     'idMembers': story_member_ids
+                    # 'idLabels': story_label_ids
                 }
                 
             self.create_new_ticket_on_trello(story_payload)
@@ -57,6 +60,12 @@ class Scrum(object):
         return story_member_ids
 
 
+    def get_story_label_ids(self, user_story_model):
+        story_label_ids = []
+
+        return story_label_ids
+
+
     def get_all_board_members(self):
         url = "https://api.trello.com/1/boards/627c210aa0ed4a48c3dd069c/members"
 
@@ -71,6 +80,23 @@ class Scrum(object):
             "GET",
             url,
             headers=headers,
+            params=payload
+        )
+
+        return json.loads(response.text)
+
+
+    def get_all_board_labels(self):
+        url = "https://api.trello.com/1/boards/627c210aa0ed4a48c3dd069c/labels"
+
+        payload = {
+            'key': '9519ec4ca00591297f8bb4e7e184a841',
+            'token': '013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82'
+        }
+
+        response = requests.request(
+            "GET",
+            url,
             params=payload
         )
 
@@ -115,6 +141,9 @@ class Scrum(object):
             headers=headers,
             params=story_payload
         )
+
+        return json.loads(response.text)
+
 
 
 
