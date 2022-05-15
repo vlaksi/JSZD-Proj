@@ -14,6 +14,11 @@ person Bajo {
     age: 22;
 }
 
+person Vladislav {
+    position: fe_dev;
+    age: 23;
+}
+
 sprint EndGameS0 {
     description: Start & setup a project;
     startDate: 2021-03-07;
@@ -25,8 +30,8 @@ sprint EndGameS0 {
         description: Find on the next js documentation how to setup base project on next;
         
         estimation: 5;
-        reporter: Perica;
-        assigne: Jovica;
+        reporter: Vladislav;
+        assigne: Bajo;
     }
 
     story Create_Readme {
