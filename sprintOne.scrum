@@ -30,7 +30,7 @@ sprint EndGameS0 {
         description: Find on the next js documentation how to setup base project on next;
         
         estimation: 5;
-        label: FE;
+        labels: FE BE QA;
         reporter: Vladislav;
         assigne: Bajo;
     }
@@ -40,6 +40,8 @@ sprint EndGameS0 {
         description: Add smth to the readme pls guys ;
 
         estimation: 3;
+        labels: BE;
+
         reporter: Jovica;
     }
 
@@ -48,6 +50,8 @@ sprint EndGameS0 {
         description: Add smth to the readme pls guys ;
 
         estimation: 3;
+        labels: QA;
+
         reporter: Bajo;
     }
 }

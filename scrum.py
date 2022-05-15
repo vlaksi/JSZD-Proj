@@ -65,8 +65,9 @@ class Scrum(object):
 
         for label in all_board_labels:
             try: 
-                if user_story_model.userStoryDetails.storyLabel.lower() in label['name'].lower():
-                    story_label_ids.append(label['id'])
+                for user_story_label_model in user_story_model.userStoryDetails.storyLabels:
+                    if user_story_label_model.name.lower() in label['name'].lower():
+                        story_label_ids.append(label['id'])
             except:
                 print("Warning: There is no label for XXX story")
 
