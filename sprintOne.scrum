@@ -30,6 +30,7 @@ sprint EndGameS0 {
         description: Find on the next js documentation how to setup base project on next;
         
         estimation: 5;
+        label: FE;
         reporter: Vladislav;
         assigne: Bajo;
     }

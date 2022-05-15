@@ -30,15 +30,15 @@ class Scrum(object):
         all_board_labels = self.get_all_board_labels()
         for user_story_model in sprint_user_stories_model: 
             story_member_ids = self.get_story_member_ids(user_story_model, all_board_members)
-            # story_label_ids = self.get_story_label_ids(user_story_model)
+            story_label_ids = self.get_story_label_ids(user_story_model, all_board_labels)
             story_payload = {
                     'idList': created_sprint['id'],
                     'key': "9519ec4ca00591297f8bb4e7e184a841",
                     'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
                     'name': user_story_model.name,
                     'desc': user_story_model.userStoryBody.storyDescription.value,
-                    'idMembers': story_member_ids
-                    # 'idLabels': story_label_ids
+                    'idMembers': story_member_ids,
+                    'idLabels': story_label_ids
                 }
                 
             self.create_new_ticket_on_trello(story_payload)
@@ -60,8 +60,15 @@ class Scrum(object):
         return story_member_ids
 
 
-    def get_story_label_ids(self, user_story_model):
+    def get_story_label_ids(self, user_story_model, all_board_labels):
         story_label_ids = []
+
+        for label in all_board_labels:
+            try: 
+                if user_story_model.userStoryDetails.storyLabel.lower() in label['name'].lower():
+                    story_label_ids.append(label['id'])
+            except:
+                print("Warning: There is no label for XXX story")
 
         return story_label_ids
 

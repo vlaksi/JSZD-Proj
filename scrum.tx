@@ -39,7 +39,7 @@ UserStoryBody:
 UserStoryDetails:
   ('priority: ' storyPriority = Priority ';')?
   ('estimation: ' storyPoints = INT ';')?
-  ('labels: ' storyLabels = Labels ';')?
+  ('label: ' storyLabel = Label ';')?
   'reporter: ' reporter = Reporter ';'
   ('assigne: ' assigne = Assigne ';')?
 ;
@@ -48,7 +48,7 @@ Priority:
   'low' | 'medium' | 'high'
 ;
 
-Labels:
+Label:
   'FE' | 'BE' | 'QA' | 'PO'
 ;
 
