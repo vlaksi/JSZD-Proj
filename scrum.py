@@ -217,7 +217,8 @@ def main():
     scrum_model = scrum_mm.model_from_file(join(this_folder, 'sprintOne.scrum'))
 
     scrum = Scrum()
-    scrum.interpret(scrum_model)
+    if(scrum.is_model_semantically_valid(scrum_model)):
+        scrum.interpret(scrum_model)
 
 
 if __name__ == "__main__":
