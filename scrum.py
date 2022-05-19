@@ -19,6 +19,18 @@ import requests
 # TODO: Improve a class to support many tracking system
 class Scrum(object):
 
+    def is_max_number_of_user_story_per_sprint_valid(self, sprint_model):
+
+        max_number_of_user_story_per_sprint = sprint_model.sprintRules.maxNumberOfUSPerSprint
+        total_number_of_user_stories = len(sprint_model.userStories)
+
+        if(total_number_of_user_stories > max_number_of_user_story_per_sprint):
+            print("\n[Checker][Semantic error]: Max number of user story for the sprint " + sprint_model.name + " is not valid, should be at most " + str(max_number_of_user_story_per_sprint))
+            return False
+
+        return True
+
+
     def interpret(self, model):
         for sprint_model in model.sprints:
             #print(model.__dict__)
@@ -55,7 +67,7 @@ class Scrum(object):
                 if user_story_model.userStoryDetails.assigne.person.name.lower() in member['fullName'].lower():
                     story_member_ids.append(member['id'])
             except:
-                print("Warning: There is no assigne for XXX story")
+                print("Warning: There is no assigne for " + user_story_model.name + " story")
 
             if user_story_model.userStoryDetails.reporter.person.name.lower() in member['fullName'].lower():
                 story_member_ids.append(member['id'])
@@ -72,7 +84,7 @@ class Scrum(object):
                     if user_story_label_model.name.lower() in label['name'].lower():
                         story_label_ids.append(label['id'])
             except:
-                print("Warning: There is no label for XXX story")
+                print("Warning: There is no label for " + user_story_model.name + " story")
 
         return story_label_ids
 
@@ -183,8 +195,6 @@ def main():
 
     scrum = Scrum()
     scrum.interpret(scrum_model)
-    extracte_all_cards_from_all_boards()
-    
 
 
 if __name__ == "__main__":
