@@ -19,6 +19,29 @@ import requests
 # TODO: Improve a class to support many tracking system
 class Scrum(object):
 
+    def is_model_semantically_valid(self, model):
+        # If any checker fail, we will print error that ocurred + return false to indicate not valid model
+        
+        for sprint_model in model.sprints:
+            if(not self.is_min_number_of_user_story_per_sprint_valid(sprint_model)): return False
+            if(not self.is_max_number_of_user_story_per_sprint_valid(sprint_model)): return False
+
+
+        return True
+
+
+    def is_min_number_of_user_story_per_sprint_valid(self, sprint_model):
+
+        min_number_of_user_story_per_sprint = sprint_model.sprintRules.minNumberOfUSPerSprint
+        total_number_of_user_stories = len(sprint_model.userStories)
+
+        if(total_number_of_user_stories < min_number_of_user_story_per_sprint):
+            print("\n[Checker][Semantic error]: Minimal number of user story for the sprint " + sprint_model.name + " is not valid, should be at least " + str(min_number_of_user_story_per_sprint))
+            return False
+
+        return True
+
+
     def is_max_number_of_user_story_per_sprint_valid(self, sprint_model):
 
         max_number_of_user_story_per_sprint = sprint_model.sprintRules.maxNumberOfUSPerSprint
