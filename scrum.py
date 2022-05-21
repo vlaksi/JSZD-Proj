@@ -2,6 +2,7 @@ import json
 from os.path import join, dirname
 from textx import metamodel_from_file
 import requests
+import base64
 
 # INFO: This grammar & interpreter is based on the fact that user
 # ie. member that is assignee or reporter is already member of
@@ -155,6 +156,44 @@ class Scrum(object):
 
         return json.loads(response.text)
 
+def connect_with_jira_and_dispaly_all_issues():
+
+    # Base encode email and api token
+    cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:Pc21zflIwX1pxv6KQTKx2B84').decode("utf-8") 
+    # Set header parameters
+    headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization" : cred
+    }
+
+    # Enter your project key here
+    projectKey = "MAL"
+
+    # Update your site url 
+    url = "https://malibajojszd.atlassian.net/rest/api/3/search?jql=project=" + projectKey
+
+    # Send request and get response
+    response = requests.request(
+    "GET", 
+    url,
+    headers=headers
+    )
+
+    # Decode Json string to Python
+    json_data = json.loads(response.text)
+
+    # Display issues
+    for item in json_data["issues"]:
+        print(item["id"] + "\t" + item["key"] + "\t" +
+            item["fields"]["issuetype"]["name"] + "\t" +
+            item["fields"]["created"]+ "\t" +
+            item["fields"]["creator"]["displayName"] + "\t" +
+            item["fields"]["status"]["name"] + "\t" +
+            item["fields"]["summary"] + "\t" 
+            )
+
+
 
 
 
@@ -185,6 +224,7 @@ def main():
     scrum.interpret(scrum_model)
     extracte_all_cards_from_all_boards()
     
+    connect_with_jira_and_dispaly_all_issues()
 
 
 if __name__ == "__main__":

@@ -205,6 +205,6 @@ Eg. I installed textX (new dependencies to the env) and after that I updated req
  3. Click Create API Token, then Enter a label for you token and click Create. 
  4. Click Copy to Clipboard and paste it on your script or save it in a file.
 
-    Token for malibajojszd: NZj1imaiLvk9lE5pFtvi84AF
+    Token for malibajojszd: Pc21zflIwX1pxv6KQTKx2B84
 
 </details>
