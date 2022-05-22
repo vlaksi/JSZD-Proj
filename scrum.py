@@ -156,10 +156,48 @@ class Scrum(object):
 
         return json.loads(response.text)
 
+def create_new_ticket_on_jira():
+    # Base encode email and api token
+    cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:i8jsukQ0R2lqTfW3a5B8475C').decode("utf-8") 
+
+    # Update your site url 
+    url = "https://malibajojszd.atlassian.net/rest/api/2/issue/" 
+
+    # Set header parameters
+    headers = {
+        "Content-Type": "application/json",
+        "Authorization" : cred
+    }
+
+    story_payload = {
+        "fields":{
+            "project":{
+                "key":"MAL"
+             },
+            "summary":"Always do right. This will gratify some people and astonish the REST.",
+            "description":"Creating an issue while setting custom field values",
+            "issuetype":{
+                "name":"Bug"
+            },
+            "customfield_11050":"Value that we're putting into a Free Text Field."
+         }
+    }
+
+    response = requests.request(
+            "POST",
+            url,
+            headers=headers,
+            data=story_payload
+    )
+    
+    print('Jira', json.loads(response.text))
+
+   
+
 def connect_with_jira_and_dispaly_all_issues():
 
     # Base encode email and api token
-    cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:Pc21zflIwX1pxv6KQTKx2B84').decode("utf-8") 
+    cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:i8jsukQ0R2lqTfW3a5B8475C').decode("utf-8") 
     # Set header parameters
     headers = {
     "Accept": "application/json",
@@ -170,7 +208,6 @@ def connect_with_jira_and_dispaly_all_issues():
     # Enter your project key here
     projectKey = "MAL"
 
-    # Update your site url 
     url = "https://malibajojszd.atlassian.net/rest/api/3/search?jql=project=" + projectKey
 
     # Send request and get response
@@ -223,9 +260,9 @@ def main():
     scrum = Scrum()
     scrum.interpret(scrum_model)
     extracte_all_cards_from_all_boards()
-    
-    connect_with_jira_and_dispaly_all_issues()
 
+    connect_with_jira_and_dispaly_all_issues()
+    create_new_ticket_on_jira()
 
 if __name__ == "__main__":
     main()

@@ -197,7 +197,7 @@ Eg. I installed textX (new dependencies to the env) and after that I updated req
     Token for malibajojszd: 013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82
  
  ## Jira
- Documentation: 
+ Documentation: https://developer.atlassian.com/server/jira/platform/jira-rest-api-examples/
     
  How to generate Token:
  1. Login into your Atlasian Account. You can do it with gmail.
