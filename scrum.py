@@ -41,6 +41,19 @@ class Scrum(object):
 
         return True
 
+
+    def is_max_number_of_user_story_per_sprint_valid(self, sprint_model):
+
+        max_number_of_user_story_per_sprint = sprint_model.sprintRules.maxNumberOfUSPerSprint
+        total_number_of_user_stories = len(sprint_model.userStories)
+
+        if(total_number_of_user_stories > max_number_of_user_story_per_sprint):
+            print("\n[Checker][Semantic error]: Max number of user story for the sprint " + sprint_model.name + " is not valid, should be at most " + str(max_number_of_user_story_per_sprint))
+            return False
+
+        return True
+
+
     def interpret(self, model):
         for sprint_model in model.sprints:
             #print(model.__dict__)
@@ -204,10 +217,8 @@ def main():
     scrum_model = scrum_mm.model_from_file(join(this_folder, 'sprintOne.scrum'))
 
     scrum = Scrum()
-
     if(scrum.is_model_semantically_valid(scrum_model)):
         scrum.interpret(scrum_model)
-
 
 
 if __name__ == "__main__":
