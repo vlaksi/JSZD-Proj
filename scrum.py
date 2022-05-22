@@ -35,7 +35,7 @@ class Scrum(object):
         for user_story_model in sprint_user_stories_model: 
             story_member_ids = self.get_story_member_ids(user_story_model, all_board_members)
             story_label_ids = self.get_story_label_ids(user_story_model, all_board_labels)
-            story_payload = {
+            story_payload_trello = {
                     'idList': created_sprint['id'],
                     'key': "9519ec4ca00591297f8bb4e7e184a841",
                     'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
@@ -44,9 +44,20 @@ class Scrum(object):
                     'idMembers': story_member_ids,
                     'idLabels': story_label_ids
                 }
-                
-            self.create_new_ticket_on_trello(story_payload)
-
+            story_payload_jira = {
+                "fields":{
+                    "project":{
+                        "key":"MAL"
+                    },
+                    "summary":'(' + str(user_story_model.userStoryDetails.storyPoints) + ') ' + user_story_model.name,
+                    "description": user_story_model.userStoryBody.storyDescription.value,
+                    "issuetype":{
+                        "name":"Bug"
+                    },
+                }
+            }
+            self.create_new_ticket_on_trello(story_payload_trello)
+            self.create_new_ticket_on_jira(story_payload_jira)
 
     def get_story_member_ids(self, user_story_model, all_board_members):
         story_member_ids = []
@@ -156,48 +167,34 @@ class Scrum(object):
 
         return json.loads(response.text)
 
-def create_new_ticket_on_jira():
-    # Base encode email and api token
-    cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:iELoc9xq7R1uUghayx9v0E73').decode("utf-8") 
+    def create_new_ticket_on_jira(self, story_payload_jira):
+        # Base encode email and api token
+        cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:rcXUD1C6VTgYEJymIFIyD8AF').decode("utf-8") 
 
-    # Update your site url 
-    url = "https://malibajojszd.atlassian.net/rest/api/2/issue/" 
+        # Update your site url 
+        url = "https://malibajojszd.atlassian.net/rest/api/2/issue/" 
 
-    # Set header parameters
-    headers = {
-        "Content-Type": "application/json",
-        "Authorization" : cred
-    }
+        # Set header parameters
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization" : cred
+        }
 
-    story_payload = {
-        "fields":{
-            "project":{
-                "key":"MAL"
-             },
-            "summary":"Always do right. This will gratify some people and astonish the REST.",
-            "description":"Creating an issue while setting custom field values",
-            "issuetype":{
-                "name":"Bug"
-            },
+        response = requests.request(
+                "POST",
+                url,
+                headers=headers,
+                json=story_payload_jira
+        )
             
-         }
-    }
-
-    response = requests.request(
-            "POST",
-            url,
-            headers=headers,
-            json=story_payload
-    )
-    
-    print('Jira', json.loads(response.text))
+        print('Jira', json.loads(response.text))
 
    
 
 def connect_with_jira_and_dispaly_all_issues():
 
     # Base encode email and api token
-    cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:iELoc9xq7R1uUghayx9v0E73').decode("utf-8") 
+    cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:rcXUD1C6VTgYEJymIFIyD8AF').decode("utf-8") 
     # Set header parameters
     headers = {
     "Accept": "application/json",
@@ -262,7 +259,7 @@ def main():
     extracte_all_cards_from_all_boards()
 
     connect_with_jira_and_dispaly_all_issues()
-    create_new_ticket_on_jira()
+    
 
 if __name__ == "__main__":
     main()
