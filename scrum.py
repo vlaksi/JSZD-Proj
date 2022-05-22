@@ -158,7 +158,7 @@ class Scrum(object):
 
 def create_new_ticket_on_jira():
     # Base encode email and api token
-    cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:i8jsukQ0R2lqTfW3a5B8475C').decode("utf-8") 
+    cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:iELoc9xq7R1uUghayx9v0E73').decode("utf-8") 
 
     # Update your site url 
     url = "https://malibajojszd.atlassian.net/rest/api/2/issue/" 
@@ -179,7 +179,7 @@ def create_new_ticket_on_jira():
             "issuetype":{
                 "name":"Bug"
             },
-            "customfield_11050":"Value that we're putting into a Free Text Field."
+            
          }
     }
 
@@ -187,7 +187,7 @@ def create_new_ticket_on_jira():
             "POST",
             url,
             headers=headers,
-            data=story_payload
+            json=story_payload
     )
     
     print('Jira', json.loads(response.text))
@@ -197,7 +197,7 @@ def create_new_ticket_on_jira():
 def connect_with_jira_and_dispaly_all_issues():
 
     # Base encode email and api token
-    cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:i8jsukQ0R2lqTfW3a5B8475C').decode("utf-8") 
+    cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:iELoc9xq7R1uUghayx9v0E73').decode("utf-8") 
     # Set header parameters
     headers = {
     "Accept": "application/json",
