@@ -52,12 +52,23 @@ class Scrum(object):
                     "summary":'(' + str(user_story_model.userStoryDetails.storyPoints) + ') ' + user_story_model.name,
                     "description": user_story_model.userStoryBody.storyDescription.value,
                     "issuetype":{
-                        "name":"Bug"
+                        "name":"Story"
                     },
+                    "assignee": {
+                         "id": "627c209023d61e006fc50f11"
+                     },
+                    "labels": [
+                        "bugfix",
+                        "blitz_test"
+                     ],
+
+                    
                 }
             }
-            self.create_new_ticket_on_trello(story_payload_trello)
+            #self.create_new_ticket_on_trello(story_payload_trello)
             self.create_new_ticket_on_jira(story_payload_jira)
+
+        self.assigne_ticket_on_jira('Nemanja Pualic', '10028')
 
     def get_story_member_ids(self, user_story_model, all_board_members):
         story_member_ids = []
@@ -169,7 +180,7 @@ class Scrum(object):
 
     def create_new_ticket_on_jira(self, story_payload_jira):
         # Base encode email and api token
-        cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:rcXUD1C6VTgYEJymIFIyD8AF').decode("utf-8") 
+        cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:rNswTIQtMUN7XPmb9wTk65D2').decode("utf-8") 
 
         # Update your site url 
         url = "https://malibajojszd.atlassian.net/rest/api/2/issue/" 
@@ -188,13 +199,39 @@ class Scrum(object):
         )
             
         print('Jira', json.loads(response.text))
+        
+    def assigne_ticket_on_jira(self, assigne_name, ticket_id):
+        # Base encode email and api token
+        cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:rNswTIQtMUN7XPmb9wTk65D2').decode("utf-8") 
+
+        # Update your site url 
+        url = "https://malibajojszd.atlassian.net/rest/api/2/issue/" + str(ticket_id) + '/'
+
+        # Set header parameters
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization" : cred
+        }
+
+        story_payload_jira={
+            "fields": {
+                "assignee":{"name":str(assigne_name)}
+            }
+        }
+        response = requests.request(
+                "PUT",
+                url,
+                headers=headers,
+                json=story_payload_jira
+        )
+                
+        print('Jira put', response)
 
    
 
 def connect_with_jira_and_dispaly_all_issues():
-
     # Base encode email and api token
-    cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:rcXUD1C6VTgYEJymIFIyD8AF').decode("utf-8") 
+    cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:rNswTIQtMUN7XPmb9wTk65D2').decode("utf-8") 
     # Set header parameters
     headers = {
     "Accept": "application/json",
@@ -227,10 +264,6 @@ def connect_with_jira_and_dispaly_all_issues():
             item["fields"]["summary"] + "\t" 
             )
 
-
-
-
-
 # Extracting all the cards in all boards FROM TRELLO:
 def extracte_all_cards_from_all_boards():
     url_member = "https://api.trello.com/1/members/malibajojszd"
@@ -258,7 +291,7 @@ def main():
     scrum.interpret(scrum_model)
     extracte_all_cards_from_all_boards()
 
-    connect_with_jira_and_dispaly_all_issues()
+    #connect_with_jira_and_dispaly_all_issues()
     
 
 if __name__ == "__main__":
