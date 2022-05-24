@@ -3,6 +3,8 @@ from os.path import join, dirname
 from textx import metamodel_from_file
 import requests
 import base64
+import json
+import pathlib
 
 # INFO: This grammar & interpreter is based on the fact that user
 # ie. member that is assignee or reporter is already member of
@@ -29,16 +31,20 @@ class Scrum(object):
 
 
     def create_sprint_user_stories(self, sprint_user_stories_model, created_sprint):
+        with open("config.json", "r") as f:
+            config = json.load(f)
+    
         # TODO: Move this get call to one logical higher level (call it once, not for each sprint!)
         all_board_members = self.get_all_board_members()
         all_board_labels = self.get_all_board_labels()
+      
         for user_story_model in sprint_user_stories_model: 
             story_member_ids = self.get_story_member_ids(user_story_model, all_board_members)
             story_label_ids = self.get_story_label_ids(user_story_model, all_board_labels)
             story_payload_trello = {
                     'idList': created_sprint['id'],
-                    'key': "9519ec4ca00591297f8bb4e7e184a841",
-                    'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
+                    'key': config["apiSecurity"]["trelloKey"],
+                    'token': config["apiSecurity"]["trelloToken"],
                     'name': '(' + str(user_story_model.userStoryDetails.storyPoints) + ') ' + user_story_model.name,
                     'desc': user_story_model.userStoryBody.storyDescription.value,
                     'idMembers': story_member_ids,
@@ -55,7 +61,7 @@ class Scrum(object):
                         "name":"Story"
                     },
                     "assignee": {
-                         "id": "627c209023d61e006fc50f11"
+                         "id": 's'
                      },
                     "labels": [
                         "bugfix",
@@ -65,10 +71,9 @@ class Scrum(object):
                     
                 }
             }
-            #self.create_new_ticket_on_trello(story_payload_trello)
-            self.create_new_ticket_on_jira(story_payload_jira)
-
-        self.assigne_ticket_on_jira('Nemanja Pualic', '10028')
+            self.create_new_ticket_on_trello(story_payload_trello)
+            self.create_new_ticket_on_jira(story_payload_jira, config)  
+    
 
     def get_story_member_ids(self, user_story_model, all_board_members):
         story_member_ids = []
@@ -178,9 +183,10 @@ class Scrum(object):
 
         return json.loads(response.text)
 
-    def create_new_ticket_on_jira(self, story_payload_jira):
+    def create_new_ticket_on_jira(self, story_payload_jira, config):
         # Base encode email and api token
-        cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:rNswTIQtMUN7XPmb9wTk65D2').decode("utf-8") 
+        loginConfig = f'malibajojszd@gmail.com:{config["apiSecurity"]["jiraToken"]}'
+        cred =  "Basic " + base64.b64encode(loginConfig.encode('ascii')).decode("utf-8") 
 
         # Update your site url 
         url = "https://malibajojszd.atlassian.net/rest/api/2/issue/" 
@@ -200,12 +206,12 @@ class Scrum(object):
             
         print('Jira', json.loads(response.text))
         
-    def assigne_ticket_on_jira(self, assigne_name, ticket_id):
+    def get_all_board_members_jira(self, projectKey, config):
         # Base encode email and api token
-        cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:rNswTIQtMUN7XPmb9wTk65D2').decode("utf-8") 
+        loginConfig = f'malibajojszd@gmail.com:{config["apiSecurity"]["jiraToken"]}'
+        cred =  "Basic " + base64.b64encode(loginConfig.encode('ascii')).decode("utf-8") 
 
-        # Update your site url 
-        url = "https://malibajojszd.atlassian.net/rest/api/2/issue/" + str(ticket_id) + '/'
+        url = "https://malibajojszd.atlassian.net/rest/api/3/user/assignable/multiProjectSearch"
 
         # Set header parameters
         headers = {
@@ -213,25 +219,26 @@ class Scrum(object):
             "Authorization" : cred
         }
 
-        story_payload_jira={
-            "fields": {
-                "assignee":{"name":str(assigne_name)}
-            }
+        query = {
+            'query': 'query',
+            'projectKeys': 'MAL'
         }
+
         response = requests.request(
-                "PUT",
+                "GET",
                 url,
                 headers=headers,
-                json=story_payload_jira
+                params=query,
         )
-                
-        print('Jira put', response)
+        print(json.loads(response.text), 'ssss')
+        return response.text
+        
 
-   
 
-def connect_with_jira_and_dispaly_all_issues():
+def connect_with_jira_and_dispaly_all_issues(config):
     # Base encode email and api token
-    cred =  "Basic " + base64.b64encode(b'malibajojszd@gmail.com:rNswTIQtMUN7XPmb9wTk65D2').decode("utf-8") 
+    loginConfig = f'malibajojszd@gmail.com:{config["apiSecurity"]["jiraToken"]}'
+    cred =  "Basic " + base64.b64encode(loginConfig.encode('ascii')).decode("utf-8") 
     # Set header parameters
     headers = {
     "Accept": "application/json",
@@ -272,7 +279,7 @@ def extracte_all_cards_from_all_boards():
 
     data_member = json.loads(response_member.text)
     board_ids = data_member['idBoards']
-    print(board_ids)
+  
     for board_id in board_ids:
         url_board_cards = "https://api.trello.com/1/boards/" + board_id +"/cards"
         response_board_cards = requests.request("GET", url_board_cards, params=querystring)
