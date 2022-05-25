@@ -17,8 +17,8 @@ Sprint:
 ;
 
 SprintRules:
-  'minNumberOfUSPerPerson: ' minNumberOfUSPerPerson=INT ';'
-  ('maxNumberOfUSPerPerson: ' maxNumberOfUSPerPerson=INT ';')?
+  'minNumberOfUSPerSprint: ' minNumberOfUSPerSprint=INT ';'
+  'maxNumberOfUSPerSprint: ' maxNumberOfUSPerSprint=INT ';'
 ;
 
 UserStory:

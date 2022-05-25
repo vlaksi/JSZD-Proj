@@ -22,6 +22,41 @@ import pathlib
 # TODO: Improve a class to support many tracking system
 class Scrum(object):
 
+    def is_model_semantically_valid(self, model):
+        # If any checker fail, we will print error that ocurred + return false to indicate not valid model
+        
+        for sprint_model in model.sprints:
+            if(not self.is_min_number_of_user_story_per_sprint_valid(sprint_model)): return False
+            if(not self.is_max_number_of_user_story_per_sprint_valid(sprint_model)): return False
+
+
+        return True
+
+
+    def is_min_number_of_user_story_per_sprint_valid(self, sprint_model):
+
+        min_number_of_user_story_per_sprint = sprint_model.sprintRules.minNumberOfUSPerSprint
+        total_number_of_user_stories = len(sprint_model.userStories)
+
+        if(total_number_of_user_stories < min_number_of_user_story_per_sprint):
+            print("\n[Checker][Semantic error]: Minimal number of user story for the sprint " + sprint_model.name + " is not valid, should be at least " + str(min_number_of_user_story_per_sprint))
+            return False
+
+        return True
+
+
+    def is_max_number_of_user_story_per_sprint_valid(self, sprint_model):
+
+        max_number_of_user_story_per_sprint = sprint_model.sprintRules.maxNumberOfUSPerSprint
+        total_number_of_user_stories = len(sprint_model.userStories)
+
+        if(total_number_of_user_stories > max_number_of_user_story_per_sprint):
+            print("\n[Checker][Semantic error]: Max number of user story for the sprint " + sprint_model.name + " is not valid, should be at most " + str(max_number_of_user_story_per_sprint))
+            return False
+
+        return True
+
+
     def interpret(self, model):
         with open("config.json", "r") as f:
             config = json.load(f)
@@ -89,7 +124,7 @@ class Scrum(object):
                 if user_story_model.userStoryDetails.assigne.person.name.lower() in member['fullName'].lower():
                     story_member_ids.append(member['id'])
             except:
-                print("Warning: There is no assigne for XXX story")
+                print("Warning: There is no assigne for " + user_story_model.name + " story")
 
             if user_story_model.userStoryDetails.reporter.person.name.lower() in member['fullName'].lower():
                 story_member_ids.append(member['id'])
@@ -106,7 +141,7 @@ class Scrum(object):
                     if user_story_label_model.name.lower() in label['name'].lower():
                         story_label_ids.append(label['id'])
             except:
-                print("Warning: There is no label for XXX story")
+                print("Warning: There is no label for " + user_story_model.name + " story")
 
         return story_label_ids
 
@@ -294,10 +329,12 @@ def main():
     scrum_model = scrum_mm.model_from_file(join(this_folder, 'sprintOne.scrum'))
 
     scrum = Scrum()
-    scrum.interpret(scrum_model)
+
     #extracte_all_cards_from_all_boards()
     #connect_with_jira_and_dispaly_all_issues()
-    
+
+    if(scrum.is_model_semantically_valid(scrum_model)):
+        scrum.interpret(scrum_model)
 
 if __name__ == "__main__":
     main()
