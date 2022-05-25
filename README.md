@@ -171,6 +171,25 @@ sprint EndGameS0 {
  
 <br/> </details>
  
- <br/>
+<details>
+ <summary> External tracking systems API comunnication </summary>
+    
+## Test accounts that we use in this project
+    gmail: malibajojszd@gmail.com
+    password: malibajojszd123
+    
+## Trello
+ Documentation: https://developer.atlassian.com/cloud/trello/rest/api-group-actions/
+    
+ How to generate Key and Token:
+ 1. Login into your Trello Account. You can do it with gmail.
+ 2. Go to this link https://trello.com/app-key to get the API Key.
+ 3. On the same page, click on generate token to generate a token which needs to be used to get authorization for your boards, lists & cards.
  
+    Key for malibajojszd: 9519ec4ca00591297f8bb4e7e184a841
+   
+    Token for malibajojszd: 013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82
+ 
+    
+</details>
  
