@@ -23,17 +23,21 @@ import pathlib
 class Scrum(object):
 
     def interpret(self, model):
-        for sprint_model in model.sprints:
-            #print(model.__dict__)
-
-            created_sprint_on_trello = self.create_new_sprint_on_trello(sprint_model)
-            self.create_sprint_user_stories(sprint_model.userStories, created_sprint_on_trello)
-
-
-    def create_sprint_user_stories(self, sprint_user_stories_model, created_sprint):
         with open("config.json", "r") as f:
             config = json.load(f)
     
+        isJiraEnabled = config["enableTrackingSystem"]["Jira"]
+        isTrelloEnabled = config["enableTrackingSystem"]["Trello"]
+
+        for sprint_model in model.sprints:
+            if(isTrelloEnabled):
+                created_sprint_on_trello = self.create_new_sprint_on_trello(sprint_model)
+                self.create_sprint_user_stories_trello(sprint_model.userStories, created_sprint_on_trello, config)
+            if(isJiraEnabled):
+                self.create_sprint_user_stories_jira(sprint_model.userStories, config)
+
+
+    def create_sprint_user_stories_trello(self, sprint_user_stories_model, created_sprint, config):   
         # TODO: Move this get call to one logical higher level (call it once, not for each sprint!)
         all_board_members = self.get_all_board_members()
         all_board_labels = self.get_all_board_labels()
@@ -50,6 +54,12 @@ class Scrum(object):
                     'idMembers': story_member_ids,
                     'idLabels': story_label_ids
                 }
+            self.create_new_ticket_on_trello(story_payload_trello)
+            
+
+    def create_sprint_user_stories_jira(self, sprint_user_stories_model, config):
+    
+        for user_story_model in sprint_user_stories_model: 
             story_payload_jira = {
                 "fields":{
                     "project":{
@@ -61,19 +71,15 @@ class Scrum(object):
                         "name":"Story"
                     },
                     "assignee": {
-                         "id": 's'
+                         "id": '627c209023d61e006fc50f11'
                      },
                     "labels": [
                         "bugfix",
                         "blitz_test"
-                     ],
-
-                    
+                     ],      
                 }
             }
-            self.create_new_ticket_on_trello(story_payload_trello)
             self.create_new_ticket_on_jira(story_payload_jira, config)  
-    
 
     def get_story_member_ids(self, user_story_model, all_board_members):
         story_member_ids = []
