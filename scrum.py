@@ -230,7 +230,7 @@ class Scrum(object):
         cred =  "Basic " + base64.b64encode(loginConfig.encode('ascii')).decode("utf-8") 
 
         # Update your site url 
-        url = "https://malibajojszd.atlassian.net/rest/api/2/issue/" 
+        url = f'https://{config["apiSecurity"]["jiraUserSite"]}.atlassian.net/rest/api/2/issue/'
 
         # Set header parameters
         headers = {
@@ -252,7 +252,7 @@ class Scrum(object):
         loginConfig = f'{config["apiSecurity"]["jiraUserMail"]}:{config["apiSecurity"]["jiraToken"]}'
         cred =  "Basic " + base64.b64encode(loginConfig.encode('ascii')).decode("utf-8") 
 
-        url = "https://malibajojszd.atlassian.net/rest/api/3/user/assignable/multiProjectSearch"
+        url = f'https://{config["apiSecurity"]["jiraUserSite"]}.atlassian.net/rest/api/3/user/assignable/multiProjectSearch'
 
         # Set header parameters
         headers = {
@@ -285,7 +285,7 @@ def connect_with_jira_and_dispaly_all_issues(config):
     "Authorization" : cred
     }
 
-    url = "https://malibajojszd.atlassian.net/rest/api/3/search?jql=project=" + config["boardsInfo"]["jiraProjectKey"]
+    url = f'https://{config["apiSecurity"]["jiraUserSite"]}.atlassian.net/rest/api/3/search?jql=project=' + config["boardsInfo"]["jiraProjectKey"]
 
     # Send request and get response
     response = requests.request(
