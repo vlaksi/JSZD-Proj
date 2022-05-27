@@ -226,7 +226,7 @@ class Scrum(object):
 
     def create_new_ticket_on_jira(self, story_payload_jira, config):
         # Base encode email and api token
-        loginConfig = f'malibajojszd@gmail.com:{config["apiSecurity"]["jiraToken"]}'
+        loginConfig = f'{config["apiSecurity"]["jiraUserMail"]}:{config["apiSecurity"]["jiraToken"]}'
         cred =  "Basic " + base64.b64encode(loginConfig.encode('ascii')).decode("utf-8") 
 
         # Update your site url 
@@ -249,7 +249,7 @@ class Scrum(object):
         
     def get_all_board_members_jira(self, projectKey, config):
         # Base encode email and api token
-        loginConfig = f'malibajojszd@gmail.com:{config["apiSecurity"]["jiraToken"]}'
+        loginConfig = f'{config["apiSecurity"]["jiraUserMail"]}:{config["apiSecurity"]["jiraToken"]}'
         cred =  "Basic " + base64.b64encode(loginConfig.encode('ascii')).decode("utf-8") 
 
         url = "https://malibajojszd.atlassian.net/rest/api/3/user/assignable/multiProjectSearch"
@@ -276,7 +276,7 @@ class Scrum(object):
 
 def connect_with_jira_and_dispaly_all_issues(config):
     # Base encode email and api token
-    loginConfig = f'malibajojszd@gmail.com:{config["apiSecurity"]["jiraToken"]}'
+    loginConfig = f'{config["apiSecurity"]["jiraUserMail"]}:{config["apiSecurity"]["jiraToken"]}'
     cred =  "Basic " + base64.b64encode(loginConfig.encode('ascii')).decode("utf-8") 
     # Set header parameters
     headers = {
