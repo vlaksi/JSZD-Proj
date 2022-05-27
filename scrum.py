@@ -108,10 +108,7 @@ class Scrum(object):
                     "assignee": {
                          "id": '627c209023d61e006fc50f11'
                      },
-                    "labels": [
-                        "bugfix",
-                        "blitz_test"
-                     ],      
+                    "labels": self.get_story_label_names(user_story_model)
                 }
             }
             self.create_new_ticket_on_jira(story_payload_jira, config)  
@@ -145,6 +142,13 @@ class Scrum(object):
 
         return story_label_ids
 
+    def get_story_label_names(self, user_story_model):
+        story_label_names = []
+       
+        for user_story_label_model in user_story_model.userStoryDetails.storyLabels:
+            story_label_names.append(user_story_label_model.name.lower() )
+
+        return story_label_names
 
     def get_all_board_members(self, config):
         url = f'https://api.trello.com/1/boards/{config["boardsInfo"]["idTrelloBoard"]}/members'
