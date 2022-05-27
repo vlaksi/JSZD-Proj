@@ -147,7 +147,7 @@ class Scrum(object):
 
 
     def get_all_board_members(self, config):
-        url = "https://api.trello.com/1/boards/627c210aa0ed4a48c3dd069c/members"
+        url = f'https://api.trello.com/1/boards/{config["boardsInfo"]["idTrelloBoard"]}/members'
 
         headers = {"Accept": "application/json"}
 
@@ -167,7 +167,7 @@ class Scrum(object):
 
 
     def get_all_board_labels(self, config):
-        url = "https://api.trello.com/1/boards/627c210aa0ed4a48c3dd069c/labels"
+        url = f'https://api.trello.com/1/boards/{config["boardsInfo"]["idTrelloBoard"]}/labels'
 
         payload = {
             'key': config["apiSecurity"]["trelloKey"],
