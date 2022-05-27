@@ -1,11 +1,10 @@
 # Sprint DSL for SCRUM
 
-This project provides a Domain-specific language that helps to generate and prepare the sprint for the SCRUM framework. 
+This project provides a Domain-specific language that helps to generate and prepare the sprint for the SCRUM framework.
 
 ## Overview
 
 The idea behind this Domain-specific language is that someone can generate all user stories, tasks, and other parts of the sprint. With that, he will be able to manage and create sprints faster and in an easier way. After that, he can make some queries and see if everything seems okay for the next sprint. Besides that, users can check if some of the participants in the sprint have enough jobs and ect.
-
 
 ## Example
 
@@ -30,7 +29,7 @@ sprint EndGameS0 {
     story Setup_NextJS {
         acceptanceCriteria: Can open & run FE project;
         description: Find on the next js documentation how to setup base project on next;
-        
+
         estimation: 5;
         reporter: Perica;
         assigne: Jovica;
@@ -53,22 +52,27 @@ sprint EndGameS0 {
   
 ## How to setup env
 
-  1. You need first to install **virtualenv**. So, open terminal **as administrator** and run
-  
-  ```sh
-  python -m virtualenv <nameOfEnv>
-  ```
-  eg. create env with name jszd-env
-  ```sh
-  python -m virtualenv jszd-env
-  ```
-  on macOS:
-  ```sh
-  virtualenv jszd-env
-  ```
-  Then, in your project, you will get virtualenv where you can install all needed dependencies and etc.  
-  
-  ![image](https://user-images.githubusercontent.com/45834270/143786245-7efc5852-c25d-4f95-98e3-d5f6eec723f9.png)
+1. You need first to install **virtualenv**. So, open terminal **as administrator** and run
+
+```sh
+python -m virtualenv <nameOfEnv>
+```
+
+eg. create env with name jszd-env
+
+```sh
+python -m virtualenv jszd-env
+```
+
+on macOS:
+
+```sh
+virtualenv jszd-env
+```
+
+Then, in your project, you will get virtualenv where you can install all needed dependencies and etc.
+
+![image](https://user-images.githubusercontent.com/45834270/143786245-7efc5852-c25d-4f95-98e3-d5f6eec723f9.png)
 
   <br/>
   
@@ -82,10 +86,10 @@ sprint EndGameS0 {
   
   ![image](https://user-images.githubusercontent.com/45834270/143786351-a3dc0b2c-fb2f-41a0-8ada-d7a21a3a784b.png)
 
-  And after you did that, you will have activated your virtual env, you can see name of your env next to the route of the current directory.
-  
-  ![image](https://user-images.githubusercontent.com/45834270/143786471-afff5acf-afac-408f-9f46-884630929198.png)
- 
+And after you did that, you will have activated your virtual env, you can see name of your env next to the route of the current directory.
+
+![image](https://user-images.githubusercontent.com/45834270/143786471-afff5acf-afac-408f-9f46-884630929198.png)
+
   <br/>
     
   If you are on macOS, activate env with 
@@ -93,37 +97,40 @@ sprint EndGameS0 {
    source .\<nameOfEnv>\bin\activate
   ```
   <br/>
-  
 
 ## Deactivate env
- It is a way easier then activation, you only need to type 
-  ```sh
-  deactivate
-  ```
-  ie. for our example
-  
-  ![image](https://user-images.githubusercontent.com/45834270/143786524-156f1bcf-a4aa-401e-a251-2cbfea882893.png)
- 
+
+It is a way easier then activation, you only need to type
+
+```sh
+deactivate
+```
+
+ie. for our example
+
+![image](https://user-images.githubusercontent.com/45834270/143786524-156f1bcf-a4aa-401e-a251-2cbfea882893.png)
+
   <br/>
 
 ## Check env dependencies
-  
-  ```sh
-  pip list
-  ```
-  ie. for our example
-  
-  ![image](https://user-images.githubusercontent.com/45834270/143786569-9fce8794-7c9c-44dc-a388-77c40af0578b.png)
+
+```sh
+pip list
+```
+
+ie. for our example
+
+![image](https://user-images.githubusercontent.com/45834270/143786569-9fce8794-7c9c-44dc-a388-77c40af0578b.png)
 
   <br/>
   
-## References 
+## References
 
-  1. Setup virtual env: [link](https://www.youtube.com/watch?v=4jt9JPoIDpY)
-  2. Introduction to textX: [link](https://www.youtube.com/watch?v=CN2IVtInapo)
+1. Setup virtual env: [link](https://www.youtube.com/watch?v=4jt9JPoIDpY)
+2. Introduction to textX: [link](https://www.youtube.com/watch?v=CN2IVtInapo)
 
- <br/><br/>
- 
+<br/><br/>
+
 </details>
  
  
@@ -132,25 +139,24 @@ sprint EndGameS0 {
  
  <br/>
 
- ## Install dependencies
- 
- ```sh
- pip install -r requirements.txt
- ```
- 
- ## Update requirements with new dependencies
- 
- Do not forget to activate virtual env when you run this command !! (Otherwise you will update req with all dependencies from your machine !!)
- 
- ```sh
- pip freeze > requirements.txt
- ```
- 
- Eg. I installed textX (new dependencies to the env) and after that I updated requirements.
- 
- ![image](https://user-images.githubusercontent.com/45834270/143787942-977afae0-39f7-4627-8cdd-fbb23df3e04b.png)
+## Install dependencies
 
- 
+```sh
+pip install -r requirements.txt
+```
+
+## Update requirements with new dependencies
+
+Do not forget to activate virtual env when you run this command !! (Otherwise you will update req with all dependencies from your machine !!)
+
+```sh
+pip freeze > requirements.txt
+```
+
+Eg. I installed textX (new dependencies to the env) and after that I updated requirements.
+
+![image](https://user-images.githubusercontent.com/45834270/143787942-977afae0-39f7-4627-8cdd-fbb23df3e04b.png)
+
   <br/>
  
  </details>
@@ -162,7 +168,7 @@ sprint EndGameS0 {
  
 1. More info about project request, can be found here: [link](https://www.igordejanovic.net/courses/jsd/projekat/)
  
-<br/> </details> 
+<br/> </details>
 
 <details> </br>
  <summary> Dictionary </summary>
@@ -171,7 +177,7 @@ sprint EndGameS0 {
  
 <br/> </details>
  
-<details>
+ <details>
  <summary> External tracking systems API comunnication </summary>
     
 ## Test accounts that we use in this project
@@ -188,8 +194,20 @@ sprint EndGameS0 {
  
     Key for malibajojszd: 9519ec4ca00591297f8bb4e7e184a841
    
-    Token for malibajojszd: 013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82
- 
-    
+    Token for malibajojszd: 013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82    
 </details>
- 
+
+## Jira
+
+Documentation: https://developer.atlassian.com/server/jira/platform/jira-rest-api-examples/
+
+How to generate Token:
+
+1.  Login into your Atlasian Account. You can do it with gmail.
+2.  Go to this link https://id.atlassian.com/manage-profile/security/api-tokens to get the API Key.
+3.  Click Create API Token, then Enter a label for you token and click Create.
+4.  Click Copy to Clipboard and paste it on your script or save it in a file.
+
+    Token for malibajojszd: Pc21zflIwX1pxv6KQTKx2B84
+
+</details>

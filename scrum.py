@@ -2,6 +2,9 @@ import json
 from os.path import join, dirname
 from textx import metamodel_from_file
 import requests
+import base64
+import json
+import pathlib
 
 # INFO: This grammar & interpreter is based on the fact that user
 # ie. member that is assignee or reporter is already member of
@@ -55,32 +58,60 @@ class Scrum(object):
 
 
     def interpret(self, model):
+        with open("config.json", "r") as f:
+            config = json.load(f)
+    
+        isJiraEnabled = config["enableTrackingSystem"]["Jira"]
+        isTrelloEnabled = config["enableTrackingSystem"]["Trello"]
+
         for sprint_model in model.sprints:
-            #print(model.__dict__)
+            if(isTrelloEnabled):
+                created_sprint_on_trello = self.create_new_sprint_on_trello(sprint_model, config)
+                self.create_sprint_user_stories_trello(sprint_model.userStories, created_sprint_on_trello, config)
+            if(isJiraEnabled):
+                self.create_sprint_user_stories_jira(sprint_model.userStories, config)
 
-            created_sprint_on_trello = self.create_new_sprint_on_trello(sprint_model)
-            self.create_sprint_user_stories(sprint_model.userStories, created_sprint_on_trello)
 
-
-    def create_sprint_user_stories(self, sprint_user_stories_model, created_sprint):
+    def create_sprint_user_stories_trello(self, sprint_user_stories_model, created_sprint, config):   
         # TODO: Move this get call to one logical higher level (call it once, not for each sprint!)
-        all_board_members = self.get_all_board_members()
-        all_board_labels = self.get_all_board_labels()
+        all_board_members = self.get_all_board_members(config)
+        all_board_labels = self.get_all_board_labels(config)
+      
         for user_story_model in sprint_user_stories_model: 
             story_member_ids = self.get_story_member_ids(user_story_model, all_board_members)
             story_label_ids = self.get_story_label_ids(user_story_model, all_board_labels)
-            story_payload = {
+            story_payload_trello = {
                     'idList': created_sprint['id'],
-                    'key': "9519ec4ca00591297f8bb4e7e184a841",
-                    'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
+                    'key': config["apiSecurity"]["trelloKey"],
+                    'token': config["apiSecurity"]["trelloToken"],
                     'name': '(' + str(user_story_model.userStoryDetails.storyPoints) + ') ' + user_story_model.name,
                     'desc': user_story_model.userStoryBody.storyDescription.value,
                     'idMembers': story_member_ids,
                     'idLabels': story_label_ids
                 }
-                
-            self.create_new_ticket_on_trello(story_payload)
+            self.create_new_ticket_on_trello(story_payload_trello)
+            
 
+    def create_sprint_user_stories_jira(self, sprint_user_stories_model, config):
+    
+        for user_story_model in sprint_user_stories_model: 
+            story_payload_jira = {
+                "fields":{
+                    "project":{
+                        "key":config["boardsInfo"]["jiraProjectKey"],
+                    },
+                    "summary":'(' + str(user_story_model.userStoryDetails.storyPoints) + ') ' + user_story_model.name,
+                    "description": user_story_model.userStoryBody.storyDescription.value,
+                    "issuetype":{
+                        "name":"Story"
+                    },
+                    "assignee": {
+                         "id": config["boardsInfo"]["assignJiraMemberToTickets"]
+                     },
+                    "labels": self.get_story_label_names(user_story_model)
+                }
+            }
+            self.create_new_ticket_on_jira(story_payload_jira, config)  
 
     def get_story_member_ids(self, user_story_model, all_board_members):
         story_member_ids = []
@@ -111,15 +142,22 @@ class Scrum(object):
 
         return story_label_ids
 
+    def get_story_label_names(self, user_story_model):
+        story_label_names = []
+       
+        for user_story_label_model in user_story_model.userStoryDetails.storyLabels:
+            story_label_names.append(user_story_label_model.name.lower() )
 
-    def get_all_board_members(self):
-        url = "https://api.trello.com/1/boards/627c210aa0ed4a48c3dd069c/members"
+        return story_label_names
+
+    def get_all_board_members(self, config):
+        url = f'https://api.trello.com/1/boards/{config["boardsInfo"]["idTrelloBoard"]}/members'
 
         headers = {"Accept": "application/json"}
 
         payload = {
-            'key': '9519ec4ca00591297f8bb4e7e184a841',
-            'token': '013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82'
+            'key': config["apiSecurity"]["trelloKey"],
+            'token': config["apiSecurity"]["trelloToken"],
         }
 
         response = requests.request(
@@ -132,12 +170,12 @@ class Scrum(object):
         return json.loads(response.text)
 
 
-    def get_all_board_labels(self):
-        url = "https://api.trello.com/1/boards/627c210aa0ed4a48c3dd069c/labels"
+    def get_all_board_labels(self, config):
+        url = f'https://api.trello.com/1/boards/{config["boardsInfo"]["idTrelloBoard"]}/labels'
 
         payload = {
-            'key': '9519ec4ca00591297f8bb4e7e184a841',
-            'token': '013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82'
+            'key': config["apiSecurity"]["trelloKey"],
+            'token': config["apiSecurity"]["trelloToken"],
         }
 
         response = requests.request(
@@ -149,12 +187,12 @@ class Scrum(object):
         return json.loads(response.text)
 
 
-    def create_new_sprint_on_trello(self, sprint):
+    def create_new_sprint_on_trello(self, sprint, config):
 
         sprint_payload = {
-                'idBoard':'627c210aa0ed4a48c3dd069c',
-                'key': "9519ec4ca00591297f8bb4e7e184a841",
-                'token': "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
+                'idBoard': config["boardsInfo"]["idTrelloBoard"],
+                'key': config["apiSecurity"]["trelloKey"],
+                'token': config["apiSecurity"]["trelloToken"],
                 'name': sprint.name, 
         }
         
@@ -190,24 +228,102 @@ class Scrum(object):
 
         return json.loads(response.text)
 
+    def create_new_ticket_on_jira(self, story_payload_jira, config):
+        # Base encode email and api token
+        loginConfig = f'{config["apiSecurity"]["jiraUserMail"]}:{config["apiSecurity"]["jiraToken"]}'
+        cred =  "Basic " + base64.b64encode(loginConfig.encode('ascii')).decode("utf-8") 
 
+        # Update your site url 
+        url = f'https://{config["apiSecurity"]["jiraUserSite"]}.atlassian.net/rest/api/2/issue/'
 
+        # Set header parameters
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization" : cred
+        }
+
+        response = requests.request(
+                "POST",
+                url,
+                headers=headers,
+                json=story_payload_jira
+        )
+            
+        print('Jira', json.loads(response.text))
+        
+    def get_all_board_members_jira(self, projectKey, config):
+        # Base encode email and api token
+        loginConfig = f'{config["apiSecurity"]["jiraUserMail"]}:{config["apiSecurity"]["jiraToken"]}'
+        cred =  "Basic " + base64.b64encode(loginConfig.encode('ascii')).decode("utf-8") 
+
+        url = f'https://{config["apiSecurity"]["jiraUserSite"]}.atlassian.net/rest/api/3/user/assignable/multiProjectSearch'
+
+        # Set header parameters
+        headers = {
+            "Content-Type": "application/json",
+            "Authorization" : cred
+        }
+
+        query = {
+            'query': 'query',
+            'projectKeys': config["boardsInfo"]["jiraProjectKey"]
+        }
+
+        response = requests.request(
+                "GET",
+                url,
+                headers=headers,
+                params=query,
+        )
+        return response.text
+        
+
+def connect_with_jira_and_dispaly_all_issues(config):
+    # Base encode email and api token
+    loginConfig = f'{config["apiSecurity"]["jiraUserMail"]}:{config["apiSecurity"]["jiraToken"]}'
+    cred =  "Basic " + base64.b64encode(loginConfig.encode('ascii')).decode("utf-8") 
+    # Set header parameters
+    headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+    "Authorization" : cred
+    }
+
+    url = f'https://{config["apiSecurity"]["jiraUserSite"]}.atlassian.net/rest/api/3/search?jql=project=' + config["boardsInfo"]["jiraProjectKey"]
+
+    # Send request and get response
+    response = requests.request(
+    "GET", 
+    url,
+    headers=headers
+    )
+
+    # Decode Json string to Python
+    json_data = json.loads(response.text)
+
+    # Display issues
+    for item in json_data["issues"]:
+        print(item["id"] + "\t" + item["key"] + "\t" +
+            item["fields"]["issuetype"]["name"] + "\t" +
+            item["fields"]["created"]+ "\t" +
+            item["fields"]["creator"]["displayName"] + "\t" +
+            item["fields"]["status"]["name"] + "\t" +
+            item["fields"]["summary"] + "\t" 
+            )
 
 # Extracting all the cards in all boards FROM TRELLO:
-def extracte_all_cards_from_all_boards():
+def extracte_all_cards_from_all_boards(config):
     url_member = "https://api.trello.com/1/members/malibajojszd"
-    querystring = {"key":"9519ec4ca00591297f8bb4e7e184a841","token":"013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82"}
+    querystring = {"key":config["apiSecurity"]["trelloKey"],"token":config["apiSecurity"]["trelloToken"],}
     response_member = requests.request("GET", url_member, params=querystring)
 
     data_member = json.loads(response_member.text)
     board_ids = data_member['idBoards']
-    print(board_ids)
+  
     for board_id in board_ids:
         url_board_cards = "https://api.trello.com/1/boards/" + board_id +"/cards"
         response_board_cards = requests.request("GET", url_board_cards, params=querystring)
         data_board_cards = json.loads(response_board_cards.text)
-        #print(data_board_cards)
-
 
 def main():
 
@@ -217,9 +333,12 @@ def main():
     scrum_model = scrum_mm.model_from_file(join(this_folder, 'sprintOne.scrum'))
 
     scrum = Scrum()
+
+    #extracte_all_cards_from_all_boards()
+    #connect_with_jira_and_dispaly_all_issues()
+
     if(scrum.is_model_semantically_valid(scrum_model)):
         scrum.interpret(scrum_model)
-
 
 if __name__ == "__main__":
     main()
