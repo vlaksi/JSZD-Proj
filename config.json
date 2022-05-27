@@ -12,6 +12,7 @@
   },
   "boardsInfo": {
     "jiraProjectKey": "MAL",
-    "idTrelloBoard": "627c210aa0ed4a48c3dd069c"
+    "idTrelloBoard": "627c210aa0ed4a48c3dd069c",
+    "assignJiraMemberToTickets": "627c209023d61e006fc50f11"
   }
 }

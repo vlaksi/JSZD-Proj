@@ -106,7 +106,7 @@ class Scrum(object):
                         "name":"Story"
                     },
                     "assignee": {
-                         "id": '627c209023d61e006fc50f11'
+                         "id": config["boardsInfo"]["assignJiraMemberToTickets"]
                      },
                     "labels": self.get_story_label_names(user_story_model)
                 }
