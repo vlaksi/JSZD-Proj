@@ -1,0 +1,41 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "scrumdsl",
+  "patterns": [
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#strings"
+    },
+    {
+      "include": "#number"
+    }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.sdsh",
+          "match": "\\b(if|while|for|return)\\b"
+        }
+      ]
+    },
+    "strings": {
+      "name": "string.quoted.double.sdsh",
+      "begin": "\"",
+      "end": "\"",
+      "patterns": [
+        {
+          "name": "constant.character.escape.sdsh",
+          "match": "\\\\."
+        }
+      ]
+    },
+    "number": {
+      "name": "constant.numeric.sdsh",
+      "match": "[0-9.]+"
+    }
+  },
+  "scopeName": "source.scrum"
+}

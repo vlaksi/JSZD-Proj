@@ -1,0 +1,25 @@
+{
+    "name": "scrumDslSyntaxHighl",
+    "displayName": "scrumDslSyntaxHighl",
+    "description": "scrumDslSyntaxHighl",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.67.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "sdsh",
+            "aliases": ["scrumdsl", "sdsh"],
+            "extensions": [".scrum"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "sdsh",
+            "scopeName": "source.scrum",
+            "path": "./syntaxes/sdsh.tmLanguage.json"
+        }]
+    }
+}
