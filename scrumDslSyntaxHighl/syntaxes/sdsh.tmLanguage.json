@@ -31,6 +31,14 @@
     "number": {
       "name": "constant.numeric.sdsh",
       "match": "[0-9.]+"
+    },
+    "string": {
+      "patterns": [
+        {
+          "name": "string",
+          "match": "[A-Za-z]"
+        }
+      ]
     }
   },
   "scopeName": "source.scrum"
