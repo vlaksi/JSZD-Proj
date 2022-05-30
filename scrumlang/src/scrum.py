@@ -329,7 +329,7 @@ def main():
 
     this_folder = dirname(__file__)
 
-    scrum_mm = metamodel_from_file(join(this_folder, 'scrum.tx'), debug=False)
+    scrum_mm = metamodel_from_file(join(this_folder, 'scrumlang.tx'), debug=False)
     scrum_model = scrum_mm.model_from_file(join(this_folder, 'sprintOne.scrum'))
 
     scrum = Scrum()

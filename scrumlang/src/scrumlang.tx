@@ -1,38 +1,89 @@
-/*
-    An example textX language
-*/
-
-Program:
-    'begin'
-      commands*=Command    // *= operator means zero or more matches.
-      // commands will be
-      // a list of command objects
-    'end'
+SprintModel:
+  persons*=Person
+  sprints+=Sprint
 ;
 
-// this is an example of abstract rule. command class will never be instantiated
-// in the model.
-Command:
-    InitialCommand | MoveCommand
+//--------- MAIN PART OF THE GRAMMAR ---------//
+
+Sprint:
+  'sprint' name=ID '{' 
+    'description: ' sprintDescription=Sentance ';'
+    ('startDate: ' sprintStartDate=Date ';')?
+    ('endDate: ' sprintEndDate=Date ';')?
+    ('averageVelocity: ' teamAverageVelocity=INT ';')?
+    sprintRules=SprintRules
+    userStories+=UserStory 
+  '}'
 ;
 
-InitialCommand:
-    'initial' x=INT ',' y=INT
+SprintRules:
+  'minNumberOfUSPerSprint: ' minNumberOfUSPerSprint=INT ';'
+  'maxNumberOfUSPerSprint: ' maxNumberOfUSPerSprint=INT ';'
 ;
 
-MoveCommand:
-    direction=Direction (steps=INT)?
+UserStory:
+  'story' name=ID '{' 
+    userStoryBody = UserStoryBody
+    userStoryDetails = UserStoryDetails
+  '}'
 ;
 
-// this is an example of a match rule
-// match rules has either string match, regex match or other match rule as
-// its alternatives (e.g. int, string... or some user match rule)
-// match rule is treated as a contained match. no class will get created.
-Direction:
-    "up"|"down"|"left"|"right"
+UserStoryBody:
+ ('acceptanceCriteria: ' storyAcceptanceCriteria=Sentance ';')?
+  ('description: ' storyDescription=Sentance ';')?
+  ('objectives: ' storyObjectives=Sentance ';' )?
+  ('additionalInformation: ' storyAdditionalInformation=Sentance ';' )?  
+  ('openQuestions: ' storyOpenQuestions=Sentance ';' )? 
 ;
 
-// special rule for comments.
+UserStoryDetails:
+  ('priority: ' storyPriority = Priority ';')?
+  ('estimation: ' storyPoints = INT ';')?
+  ('labels: ' storyLabels += Label ';')?
+  'reporter: ' reporter = Reporter ';'
+  ('assigne: ' assigne = Assigne ';')?
+;
+
+Priority:
+  'low' | 'medium' | 'high'
+;
+
+Label:
+  name=ID
+;
+
+Person:
+  'person' name=ID '{'
+    'position: ' personPosition=Position ';'
+    ('age: ' age=INT ';')?
+    ('birthday: ' birthday=Date ';')?
+    ('monthsInCompany: ' monthsInCompany=INT ';')?
+  '}'
+;
+
+Position:
+  'fe_dev' | 'be_dev' | 'qa' | 'scrum_master' | 'product_owner' | 'stakeholder'
+;
+
+Reporter:
+  person = [Person]
+;
+
+Assigne:
+  person = [Person]
+;
+
+//--------- PRIMITIVE PART OF THE GRAMMAR ---------//
+
+Date:
+  year=INT '-' month=INT '-' day=INT 
+;
+
 Comment:
-    /\/\/.*$/
+  /\/\/.*$/
+;
+
+// We use sentance this way, cause we want to exlude ; and have many words
+Sentance:
+  value = /[^;]*/
 ;
