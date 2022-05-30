@@ -6,10 +6,13 @@
       "include": "#keywords"
     },
     {
-      "include": "#strings"
+      "include": "#constants"
     },
     {
       "include": "#number"
+    },
+    {
+      "include": "#string"
     }
   ],
   "repository": {
@@ -17,20 +20,13 @@
       "patterns": [
         {
           "name": "keyword.control.sdsh",
-          "match": "\\b(if|while|for|return)\\b"
+          "match": "\\b(person|story|sprint)\\b"
         }
       ]
     },
-    "strings": {
-      "name": "string.quoted.double.sdsh",
-      "begin": "\"",
-      "end": "\"",
-      "patterns": [
-        {
-          "name": "constant.character.escape.sdsh",
-          "match": "\\\\."
-        }
-      ]
+    "constants": {
+      "name": "constant.language",
+      "match": "\\b(acceptanceCriteria|description|estimation|labels|reporter|assigne|position|age|startDate|endDate|minNumberOfUSPerSprint|maxNumberOfUSPerSprint|birthday)\\b"
     },
     "number": {
       "name": "constant.numeric.sdsh",
