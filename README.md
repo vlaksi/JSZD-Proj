@@ -83,7 +83,7 @@ sprint EndGameS0 {
 ## 2. Install our scrum interpreter
     
 ```sh
-pip install git+https://github.com/vlaksi/testiranje-jszd.git
+pip install git+https://github.com/vlaksi/JSZD-Proj.git
 ```
 
 ![2-install-scrumlang](https://user-images.githubusercontent.com/45834270/171293314-9f367d94-00cc-47ef-9c06-f9d5518d5588.gif)
