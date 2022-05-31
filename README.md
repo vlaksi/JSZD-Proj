@@ -20,19 +20,31 @@ person Jovica {
     birthday: 1998-03-19;
 }
 
+person Bajo {
+    position: fe_dev;
+    age: 22;
+}
+
+person Vladislav {
+    position: fe_dev;
+    age: 23;
+}
+
 sprint EndGameS0 {
     description: Start & setup a project;
     startDate: 2021-03-07;
     endDate: 2021-03-21;
-    minNumberOfUSPerPerson: 3;
+    minNumberOfUSPerSprint: 3;
+    maxNumberOfUSPerSprint: 9;
 
     story Setup_NextJS {
         acceptanceCriteria: Can open & run FE project;
         description: Find on the next js documentation how to setup base project on next;
-
+        
         estimation: 5;
-        reporter: Perica;
-        assigne: Jovica;
+        labels: FE BE QA;
+        reporter: Vladislav;
+        assigne: Bajo;
     }
 
     story Create_Readme {
@@ -40,9 +52,22 @@ sprint EndGameS0 {
         description: Add smth to the readme pls guys ;
 
         estimation: 3;
+        labels: BE;
+
         reporter: Jovica;
     }
+
+    story Check_endpoints {
+        acceptanceCriteria: Readme is available;
+        description: Add smth to the readme pls guys ;
+
+        estimation: 3;
+        labels: QA;
+
+        reporter: Bajo;
+    }
 }
+
 ```
 
 ## Menu
