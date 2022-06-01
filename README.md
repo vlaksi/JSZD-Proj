@@ -252,8 +252,6 @@ Eg. I installed textX (new dependencies to the env) and after that I updated req
     Key for malibajojszd: 9519ec4ca00591297f8bb4e7e184a841
    
     Token for malibajojszd: 013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82    
-</details>
-
 ## Jira
 
 Documentation: https://developer.atlassian.com/server/jira/platform/jira-rest-api-examples/
@@ -265,6 +263,11 @@ How to generate Token:
 3.  Click Create API Token, then Enter a label for you token and click Create.
 4.  Click Copy to Clipboard and paste it on your script or save it in a file.
 
-    Token for malibajojszd: Pc21zflIwX1pxv6KQTKx2B84
+    </details>
 
+ <details>
+ <summary> Syntax Highlighting in VS Code for scrum DSL </summary>
+
+1.  Copy whole directory \JSZD-Proj\scrumDslSyntaxHighl to ~\.vscode\extensions.
+2.  Close and open again VS Code
 </details>
