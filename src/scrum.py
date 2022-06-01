@@ -4,7 +4,6 @@ from textx import metamodel_from_file
 import requests
 import base64
 import json
-import pathlib
 
 # INFO: This grammar & interpreter is based on the fact that user
 # ie. member that is assignee or reporter is already member of
@@ -13,13 +12,6 @@ import pathlib
 # must already exist on the board, otherwise it will be not added to the
 # story
 
-# TODO: Implement checker for position, ie. we need to have at least one
-# fe_dev, be_dev & qa in the team (board)
-
-# Right now, we have a methods in this class that can create new sprint
-# on the Trello & also we can create tickets/stories in the new column
-# ie. list (and that represent a sprint)
-# TODO: Improve a class to support many tracking system
 class Scrum(object):
 
     def is_model_semantically_valid(self, model):
@@ -325,12 +317,12 @@ def extracte_all_cards_from_all_boards(config):
         response_board_cards = requests.request("GET", url_board_cards, params=querystring)
         data_board_cards = json.loads(response_board_cards.text)
 
-def main():
+def main(file_name_to_interpret):
 
     this_folder = dirname(__file__)
 
-    scrum_mm = metamodel_from_file(join(this_folder, 'scrum.tx'), debug=False)
-    scrum_model = scrum_mm.model_from_file(join(this_folder, 'sprintOne.scrum'))
+    scrum_mm = metamodel_from_file(join(this_folder, 'scrumlang.tx'), debug=False)
+    scrum_model = scrum_mm.model_from_file(file_name_to_interpret)
 
     scrum = Scrum()
 
@@ -341,4 +333,4 @@ def main():
         scrum.interpret(scrum_model)
 
 if __name__ == "__main__":
-    main()
+    main("sprintExample.scrum")
