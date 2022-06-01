@@ -40,7 +40,7 @@ sprint EndGameS0 {
     story Setup_NextJS {
         acceptanceCriteria: Can open & run FE project;
         description: Find on the next js documentation how to setup base project on next;
-        
+
         estimation: 5;
         labels: FE BE QA;
         reporter: Vladislav;
@@ -79,9 +79,8 @@ sprint EndGameS0 {
 
 ![1-install-virtual-env](https://user-images.githubusercontent.com/45834270/171293138-280ef88d-ad3b-45a9-855e-659b5fa6b8f6.gif)
 
-
 ## 2. Install our scrum interpreter
-    
+
 ```sh
 pip install git+https://github.com/vlaksi/JSZD-Proj.git
 ```
@@ -90,18 +89,16 @@ pip install git+https://github.com/vlaksi/JSZD-Proj.git
 
 ## 3. Start your exapmle
 
-![3-start-your-example](https://user-images.githubusercontent.com/45834270/171293329-2a8d9ed9-8451-477d-b975-add2c45aa936.gif)
+![3 1-start-your-example](https://user-images.githubusercontent.com/45834270/171407948-2e7c52df-e187-46a7-9e12-9e4b23ea6f43.gif)
 
-    
 ## 4. Write your program & add config
-    
-![4-add-your-mogram-and-config](https://user-images.githubusercontent.com/45834270/171293334-ea284424-d1ba-47b0-8514-e6b636af3099.gif)
+
+![4 1-write-your-program](https://user-images.githubusercontent.com/45834270/171409630-a5d5950d-4a04-46cf-8c48-6bc5f0ce553c.gif)
 
 ## 5. Start your program & see results
 
-![5-start-you-example-and-see-results](https://user-images.githubusercontent.com/45834270/171293342-4646054a-122e-40ed-acb7-7847f6036408.gif)
+![5 1-see-results](https://user-images.githubusercontent.com/45834270/171409648-291921b2-6796-455b-8991-084c8af9d13a.gif)
 
-    
 </details>
 
 <details>
