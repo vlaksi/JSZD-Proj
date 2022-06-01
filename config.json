@@ -1,0 +1,18 @@
+{
+  "enableTrackingSystem": {
+    "Jira": true,
+    "Trello": true
+  },
+  "apiSecurity": {
+    "trelloKey": "9519ec4ca00591297f8bb4e7e184a841",
+    "trelloToken": "013c3b97e0290d108573fb6d150a8bf32982b84150c20a4d372bf701dabe8d82",
+    "jiraToken": "hJ1FKPR9z6EXAXcxQdHY5ABA",
+    "jiraUserMail": "malibajojszd@gmail.com",
+    "jiraUserSite": "malibajojszd"
+  },
+  "boardsInfo": {
+    "jiraProjectKey": "MAL",
+    "idTrelloBoard": "627c210aa0ed4a48c3dd069c",
+    "assignJiraMemberToTickets": "627c209023d61e006fc50f11"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "scrumdsl",
+  "patterns": [
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#constants"
+    },
+    {
+      "include": "#number"
+    },
+    {
+      "include": "#string"
+    }
+  ],
+  "repository": {
+    "keywords": {
+      "patterns": [
+        {
+          "name": "keyword.control.sdsh",
+          "match": "\\b(person|story|sprint)\\b"
+        }
+      ]
+    },
+    "constants": {
+      "name": "constant.language",
+      "match": "\\b(acceptanceCriteria|description|estimation|labels|reporter|assigne|position|age|startDate|endDate|minNumberOfUSPerSprint|maxNumberOfUSPerSprint|birthday)\\b"
+    },
+    "number": {
+      "name": "constant.numeric.sdsh",
+      "match": "[0-9.]+"
+    },
+    "string": {
+      "patterns": [
+        {
+          "name": "string",
+          "match": "[A-Za-z]"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.scrum"
+}

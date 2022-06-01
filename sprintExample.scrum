@@ -19,14 +19,15 @@ person Vladislav {
     age: 23;
 }
 
-sprint EndGameS0 {
-    description: Start & setup a project;
+sprint EndGameSZero {
+    description: Start and setup a project;
     startDate: 2021-03-07;
     endDate: 2021-03-21;
-    minNumberOfUSPerPerson: 3;
+    minNumberOfUSPerSprint: 3;
+    maxNumberOfUSPerSprint: 9;
 
     story Setup_NextJS {
-        acceptanceCriteria: Can open & run FE project;
+        acceptanceCriteria: Can open and run FE project;
         description: Find on the next js documentation how to setup base project on next;
         
         estimation: 5;
