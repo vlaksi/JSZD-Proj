@@ -6,8 +6,7 @@ __version__ = "0.1.0.dev"
 
 @language('scrumlang', '*.scrum')
 def scrumlang_language():
-    "A language for scrum sprints definition"
-    
+    "scrumlang language"
     current_dir = os.path.dirname(__file__)
     mm = metamodel_from_file(os.path.join(current_dir, 'scrumlang.tx'))
 
