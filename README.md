@@ -20,19 +20,31 @@ person Jovica {
     birthday: 1998-03-19;
 }
 
+person Bajo {
+    position: fe_dev;
+    age: 22;
+}
+
+person Vladislav {
+    position: fe_dev;
+    age: 23;
+}
+
 sprint EndGameS0 {
     description: Start & setup a project;
     startDate: 2021-03-07;
     endDate: 2021-03-21;
-    minNumberOfUSPerPerson: 3;
+    minNumberOfUSPerSprint: 3;
+    maxNumberOfUSPerSprint: 9;
 
     story Setup_NextJS {
         acceptanceCriteria: Can open & run FE project;
         description: Find on the next js documentation how to setup base project on next;
-
+        
         estimation: 5;
-        reporter: Perica;
-        assigne: Jovica;
+        labels: FE BE QA;
+        reporter: Vladislav;
+        assigne: Bajo;
     }
 
     story Create_Readme {
@@ -40,12 +52,57 @@ sprint EndGameS0 {
         description: Add smth to the readme pls guys ;
 
         estimation: 3;
+        labels: BE;
+
         reporter: Jovica;
     }
+
+    story Check_endpoints {
+        acceptanceCriteria: Readme is available;
+        description: Add smth to the readme pls guys ;
+
+        estimation: 3;
+        labels: QA;
+
+        reporter: Bajo;
+    }
 }
+
 ```
 
 ## Menu
+
+<details>
+    <summary> How to use it </summary>
+    
+## 1. Install virtual env
+
+![1-install-virtual-env](https://user-images.githubusercontent.com/45834270/171293138-280ef88d-ad3b-45a9-855e-659b5fa6b8f6.gif)
+
+
+## 2. Install our scrum interpreter
+    
+```sh
+pip install git+https://github.com/vlaksi/JSZD-Proj.git
+```
+
+![2-install-scrumlang](https://user-images.githubusercontent.com/45834270/171293314-9f367d94-00cc-47ef-9c06-f9d5518d5588.gif)
+
+## 3. Start your exapmle
+
+![3-start-your-example](https://user-images.githubusercontent.com/45834270/171293329-2a8d9ed9-8451-477d-b975-add2c45aa936.gif)
+
+    
+## 4. Write your program & add config
+    
+![4-add-your-mogram-and-config](https://user-images.githubusercontent.com/45834270/171293334-ea284424-d1ba-47b0-8514-e6b636af3099.gif)
+
+## 5. Start your program & see results
+
+![5-start-you-example-and-see-results](https://user-images.githubusercontent.com/45834270/171293342-4646054a-122e-40ed-acb7-7847f6036408.gif)
+
+    
+</details>
 
 <details>
  <summary> Virtual env usage </summary> 
